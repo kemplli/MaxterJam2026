@@ -12,6 +12,9 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField]
     private TMP_Text healthText;
 
+    [SerializeField]
+    private GameObject deadPrefab;
+
     protected override void ManagedInitialize()
     {
         startScale = transform.localScale;
@@ -56,6 +59,7 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (health <= 0)
         {
             transform.DOKill();
+            var inst = GameObject.Instantiate(deadPrefab,transform.position,Quaternion.Euler(0f,0f,Random.Range(-180f,180f)));
             Destroy(gameObject);
         }
     }

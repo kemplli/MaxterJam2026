@@ -17,6 +17,7 @@ public static class G
     public static Events events;
 
     public static CardsArea area;
+    public static Sack sack;
 
     public static GameDynamicDataManager d_data;
     public static GameStaticDataManager s_data;

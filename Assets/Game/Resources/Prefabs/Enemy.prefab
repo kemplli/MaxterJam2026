@@ -280,6 +280,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 12
   healthText: {fileID: 1409710179656796096}
+  deadPrefab: {fileID: 6317614470653612735, guid: 52216c83a46de934b8358b10f4bb56ba, type: 3}
 --- !u!61 &5219515000236594905
 BoxCollider2D:
   m_ObjectHideFlags: 0

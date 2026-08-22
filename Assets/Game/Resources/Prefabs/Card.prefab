@@ -154,7 +154,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveable: {fileID: 1343825816141385197}
-  damage: 6
+  sorting: 1
+  id: 0
 --- !u!114 &1343825816141385197
 MonoBehaviour:
   m_ObjectHideFlags: 0

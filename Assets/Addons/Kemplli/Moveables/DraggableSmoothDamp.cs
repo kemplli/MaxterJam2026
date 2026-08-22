@@ -18,6 +18,7 @@ public class DraggableSmoothDamp : ManagedBehaviour, IPointerDownHandler, IPoint
     private Collider2D collider;
 
     private Vector3 startScale;
+    public bool sorting;
 
     public DragState state { get; private set; } = DragState.Idle;
 
@@ -87,6 +88,7 @@ public class DraggableSmoothDamp : ManagedBehaviour, IPointerDownHandler, IPoint
 
     public override void ManagedUpdate()
     {
+        if(sorting)
         sortingGroup.sortingOrder = isDragging ? 1000 : 0;
     }
 
