@@ -25,7 +25,7 @@ public class Lever : ManagedBehaviour, IPointerDownHandler,IPointerUpHandler
     private float cameraShakingMagnitude;
 
 
-    private float currentMovingProgress = 0f;
+    public float currentMovingProgress = 0f;
 
     protected override void ManagedInitialize()
     {

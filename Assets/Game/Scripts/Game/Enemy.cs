@@ -72,10 +72,16 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         if (health <= 0)
         {
-            transform.DOKill();
-            var inst = GameObject.Instantiate(deadPrefab,transform.position,Quaternion.Euler(0f,0f,UnityEngine.Random.Range(-180f,180f)));
-            Destroy(gameObject);
+            Death();
         }
+    }
+
+    private void Death()
+    {
+        transform.DOKill();
+        var inst = GameObject.Instantiate(deadPrefab, transform.position, Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(-180f, 180f)));
+        G.levelManager.currentEnemyCount--;
+        Destroy(gameObject);
     }
 }
 

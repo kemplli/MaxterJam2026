@@ -3,19 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[DefaultExecutionOrder(-100)]
 public class LevelManager : ManagedBehaviour
 {
     public List<Level> levels = new List<Level>();
 
     private List<GameObject> currentEnemies = new List<GameObject>();
 
+    public int currentEnemyCount;
+
+    public int currentLevel;
+
     protected override void ManagedInitialize()
     {
-        LoadLevel(levels.First());
+        G.levelManager = this;
     }
 
-    public void LoadLevel(Level level)
+    public void LoadLevel(int index)
     {
+        G.lever.currentMovingProgress = 0;
+
+        var level = levels[index];
+
         currentEnemies.Clear();
         for (int i = 0; i < level.enemies.Count; i++)
         {
@@ -28,6 +37,10 @@ public class LevelManager : ManagedBehaviour
         }
         G.lever.FullWithEnemies(currentEnemies);
         G.lever.FullWithDestinations(level.enemiesPositions);
+
+        currentEnemyCount = currentEnemies.Count;
+
+        currentLevel++;
     }
 }
 

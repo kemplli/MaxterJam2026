@@ -20,6 +20,7 @@ public static class G
     public static Sack sack;
     public static Lever lever;
     public static CameraShaker cameraShaker;
+    public static LevelManager levelManager;
 
     public static GameDynamicDataManager d_data;
     public static GameStaticDataManager s_data;

@@ -29,10 +29,10 @@ public class Main : MonoBehaviour
             G.area.Claim(inst.GetComponent<CardViewInteractable>());
         }
 
-      //  if (Input.GetMouseButtonDown(0))
-        //{
-          //  G.transition.TransitioN(() => { Debug.Log("FUCK"); });
-        //}
+        if (G.levelManager.currentEnemyCount == 0)
+        {
+            G.levelManager.LoadLevel(G.levelManager.currentLevel);
+        }
     }
 
 }
