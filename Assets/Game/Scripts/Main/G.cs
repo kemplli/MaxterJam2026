@@ -18,6 +18,8 @@ public static class G
 
     public static CardsArea area;
     public static Sack sack;
+    public static Lever lever;
+    public static CameraShaker cameraShaker;
 
     public static GameDynamicDataManager d_data;
     public static GameStaticDataManager s_data;
@@ -53,6 +55,7 @@ public static class G
 public class GameStaticDataManager
 {
     private List<CardData> cards = new List<CardData>();
+    private List<EnemyData> enemies = new List<EnemyData>();
 
     public GameStaticDataManager()
     {
@@ -64,9 +67,15 @@ public class GameStaticDataManager
         return cards.Find(x => x.id == id);
     }
 
+    public EnemyData GetEnemyData(Enemies id)
+    {
+        return enemies.Find(x => x.id == id);
+    }
+
     private void Initialize()
     {
         cards = Resources.LoadAll<CardData>("Data/Static/Cards").ToList();
+        enemies = Resources.LoadAll<EnemyData>("Data/Static/Enemies").ToList();
     }
 }
 

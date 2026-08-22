@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6303334638990948203}
   - component: {fileID: 3342294850001899862}
   - component: {fileID: -7234049551599639167}
+  - component: {fileID: -8368377732766423146}
   m_Layer: 0
   m_Name: DeadEnemy
   m_TagString: Untagged
@@ -168,3 +169,15 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!210 &-8368377732766423146
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6317614470653612735}
+  m_Enabled: 1
+  m_SortingLayerID: 1232208535
+  m_SortingLayer: 4
+  m_SortingOrder: 0
+  m_SortAtRoot: 0

@@ -2,12 +2,14 @@
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using TMPro;
+using System;
 
 public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private Vector3 startScale;
 
-    public int health;
+    public Enemies id;
+    private EnemyData data;
 
     [SerializeField]
     private TMP_Text healthText;
@@ -15,9 +17,21 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField]
     private GameObject deadPrefab;
 
+    private SpriteRenderer spriteRenderer;
+
+    [NonSerialized]
+    public int health;
+
+
     protected override void ManagedInitialize()
     {
         startScale = transform.localScale;
+
+        data = G.s_data.GetEnemyData(id);
+        health = data.health;
+
+        spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = data.view;
 
         G.events.onRelease += TakeDamage;
     }
@@ -59,8 +73,14 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (health <= 0)
         {
             transform.DOKill();
-            var inst = GameObject.Instantiate(deadPrefab,transform.position,Quaternion.Euler(0f,0f,Random.Range(-180f,180f)));
+            var inst = GameObject.Instantiate(deadPrefab,transform.position,Quaternion.Euler(0f,0f,UnityEngine.Random.Range(-180f,180f)));
             Destroy(gameObject);
         }
     }
+}
+
+public enum Enemies
+{
+    Basic,
+    Eggs
 }

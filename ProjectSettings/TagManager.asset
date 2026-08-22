@@ -47,6 +47,9 @@ TagManager:
   - name: CardView
     uniqueID: 3575536677
     locked: 0
+  - name: DeadEnemy
+    uniqueID: 1232208535
+    locked: 0
   - name: Transition
     uniqueID: 4207763229
     locked: 0

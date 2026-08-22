@@ -1,9 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
-using NUnit.Framework;
-using System.Linq;
-using UnityEngineInternal;
-using JetBrains.Annotations;
+using System.Collections.Generic;
+using System;
 
 public class Main : MonoBehaviour
 {
