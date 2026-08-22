@@ -11,7 +11,7 @@ public class Moveable : MoveableBase
 
     public override void ManagedUpdate()
     {
-        if(DraggableSmoothDamp.CurrentDraggable == draggable)
+        if(draggable.isDragging)
            transform.position = targetPosition;
     }
 }

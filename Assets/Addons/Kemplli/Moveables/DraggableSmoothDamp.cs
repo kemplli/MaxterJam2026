@@ -1,8 +1,10 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Rendering;
 
-public class DraggableSmoothDamp : ManagedBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
+public class DraggableSmoothDamp : ManagedBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler,IPointerEnterHandler,IPointerExitHandler
 {
     public MoveableBase moveable = null;
 
@@ -11,26 +13,33 @@ public class DraggableSmoothDamp : ManagedBehaviour, IPointerDownHandler, IPoint
 
     Vector3 offset;
 
-    public DragState state { get; private set; } = DragState.Idle;
+    private SortingGroup sortingGroup;
 
-    public static DraggableSmoothDamp CurrentDraggable {  get; private set; }
+    private Collider2D collider;
+
+    private Vector3 startScale;
+
+    public DragState state { get; private set; } = DragState.Idle;
 
     private void Start()
     {
         mainCamera = Camera.main;
-        moveable.targetPosition = transform.position;
+        sortingGroup = GetComponent<SortingGroup>();
+        collider = GetComponent<Collider2D>();
+        startScale = transform.localScale;
+        moveable.targetPosition = transform.parent != null ? transform.localPosition : transform.position;
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        moveable.enabled = true;
+        //   moveable.enabled = true;
         StartDrag(eventData);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         StopDrag(eventData);
-        moveable.enabled = false;
+        //moveable.enabled = false;
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -44,32 +53,57 @@ public class DraggableSmoothDamp : ManagedBehaviour, IPointerDownHandler, IPoint
         isDragging = true;
         Vector3 screenPosition = mainCamera.WorldToScreenPoint(transform.position);
         offset = transform.position - mainCamera.ScreenToWorldPoint(new Vector3(eventData.position.x, eventData.position.y, screenPosition.z));
-        CurrentDraggable = this;
+        if(collider.enabled) collider.enabled = false;
 
         state = DragState.Dragging;
     }
      
     private void StopDrag(PointerEventData eventData)
     {
-        if (CurrentDraggable != null)
+        if (isDragging)
         {
             isDragging = false;
-            moveable.targetPosition = CurrentDraggable.transform.position;
-            CurrentDraggable = null;
+            moveable.targetPosition = transform.position;
+            if (!collider.enabled) collider.enabled = true;
 
             state = DragState.Idle;
+            transform.DOKill();
+            transform.DOScale(startScale, 0.25f);
+            OnRelease();
         }
     }
 
     private void Drag(PointerEventData eventData)
     {
-        if (CurrentDraggable != null)
+        if (isDragging)
         {
             Vector3 cursorPoint = new Vector3(eventData.position.x, eventData.position.y, mainCamera.WorldToScreenPoint(transform.position).z);
-            Vector3 cursorPosition = mainCamera.ScreenToWorldPoint(cursorPoint) + offset;
+            Vector3 cursorPosition = (Vector3)GameMath.MousePos2D() + offset;
             cursorPosition.z = transform.position.z;
 
             moveable.targetPosition = cursorPosition;
+        }
+    }
+
+    public override void ManagedUpdate()
+    {
+        sortingGroup.sortingOrder = isDragging ? 1000 : 0;
+    }
+
+    protected virtual void OnRelease() { }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        transform.DOKill();
+        transform.DOScale(startScale * 1.2f, 0.25f);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (!isDragging)
+        {
+            transform.DOKill();
+            transform.DOScale(startScale, 0.25f);
         }
     }
 }

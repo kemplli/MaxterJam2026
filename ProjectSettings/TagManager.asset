@@ -41,6 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Enemy
+    uniqueID: 3667692713
+    locked: 0
+  - name: CardView
+    uniqueID: 3575536677
+    locked: 0
   - name: Transition
     uniqueID: 4207763229
     locked: 0

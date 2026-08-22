@@ -14,11 +14,16 @@ public static class G
     public static LocalizationManager localization;
     public static UI ui;
     public static TypingManager typing;
+    public static Events events;
+
+    public static CardsArea area;
 
     public static GameDynamicDataManager d_data;
     public static GameStaticDataManager s_data;
 
     public static Feel feel;
+
+    public static Enemy selectedEnemy;
 
     public static bool IsPaused => Time.timeScale == 0;
     private static float _currentTimeScale = 1f;
@@ -46,13 +51,21 @@ public static class G
 
 public class GameStaticDataManager
 {
+    private List<CardData> cards = new List<CardData>();
+
     public GameStaticDataManager()
     {
         Initialize();
     }
 
+    public CardData GetCardData(Cards id)
+    {
+        return cards.Find(x => x.id == id);
+    }
+
     private void Initialize()
     {
+        cards = Resources.LoadAll<CardData>("Data/Static/Cards").ToList();
     }
 }
 

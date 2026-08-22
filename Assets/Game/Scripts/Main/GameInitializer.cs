@@ -15,6 +15,7 @@ public static class GameInitializer
         G.d_data = new GameDynamicDataManager();
         G.s_data = new GameStaticDataManager();
         G.feel = new Feel();
+        G.events = new Events();
 
         G.localization = new LocalizationManager();
     }

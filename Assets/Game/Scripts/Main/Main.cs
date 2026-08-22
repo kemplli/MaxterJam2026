@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 using NUnit.Framework;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngineInternal;
+using JetBrains.Annotations;
 
 public class Main : MonoBehaviour
 {
-    private GameObject prefab;
+    private GameObject cardPrefab;
 
     private void Awake()
     {
-        prefab = Resources.Load<GameObject>("Prefabs/A");
+        cardPrefab = Resources.Load<GameObject>("Prefabs/Card");
     }
 
     private void Update()
@@ -26,10 +26,16 @@ public class Main : MonoBehaviour
             G.SetPaused(!G.IsPaused);
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(1))
         {
-            G.transition.TransitioN(() => { Debug.Log("FUCK"); });
+            var inst = Instantiate(cardPrefab,Vector3.zero,Quaternion.identity);
+            G.area.Claim(inst.GetComponent<CardViewInteractable>());
         }
+
+      //  if (Input.GetMouseButtonDown(0))
+        //{
+          //  G.transition.TransitioN(() => { Debug.Log("FUCK"); });
+        //}
     }
 
 }
