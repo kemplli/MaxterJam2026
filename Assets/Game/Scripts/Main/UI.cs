@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +10,20 @@ public class UI : MonoBehaviour
         G.ui = this;
     }
 
-    public Slider elixir;
+    public GameObject dialogueWithManager;
 
-    public List<GameObject> sprites;
+    public TMP_Text actionsLeft;
+
+    public Slider healthSlider;
+    public TMP_Text healthText;
+
+    public GameObject floatingMessagePrefab;
+
+    public void SpawnFloatingMessage(string text)
+    {
+        var inst = GameObject.Instantiate(floatingMessagePrefab,floatingMessagePrefab.transform.position, Quaternion.identity);
+        inst.transform.parent = transform;
+        inst.GetComponent<TMP_Text>().text = text;
+    }
+
 }

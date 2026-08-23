@@ -20,6 +20,6 @@ public class Sack : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         Destroy(dead.gameObject);
         bodiesCount++;
-        transform.DOScale(transform.localScale + new Vector3((0.2f * bodiesCount), (0.2f * bodiesCount),0f), 0.5f);
+        transform.DOScale(transform.localScale + new Vector3(0.2f, 0.2f,0f), 0.5f);
     }
 }

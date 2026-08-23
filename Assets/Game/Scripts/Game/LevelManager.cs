@@ -8,20 +8,23 @@ public class LevelManager : ManagedBehaviour
 {
     public List<Level> levels = new List<Level>();
 
-    private List<GameObject> currentEnemies = new List<GameObject>();
+    [NonSerialized]
+    public List<GameObject> currentEnemies = new List<GameObject>();
 
     public int currentEnemyCount;
 
-    public int currentLevel;
+    public LevelDynamicData dynamicData;
 
     protected override void ManagedInitialize()
     {
         G.levelManager = this;
+
+        dynamicData = G.d_data.GetLevelDynamicData();
     }
 
     public void LoadLevel(int index)
     {
-        G.lever.currentMovingProgress = 0;
+        G.events.onLoadingLevel?.Invoke();
 
         var level = levels[index];
 
@@ -40,7 +43,7 @@ public class LevelManager : ManagedBehaviour
 
         currentEnemyCount = currentEnemies.Count;
 
-        currentLevel++;
+        dynamicData.currentLevel++;
     }
 }
 

@@ -50,6 +50,9 @@ TagManager:
   - name: DeadEnemy
     uniqueID: 1232208535
     locked: 0
+  - name: UI
+    uniqueID: 3292647743
+    locked: 0
   - name: Transition
     uniqueID: 4207763229
     locked: 0

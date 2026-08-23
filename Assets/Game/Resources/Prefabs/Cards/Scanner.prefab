@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1343825816141385197}
   - component: {fileID: 394488232562887997}
   m_Layer: 0
-  m_Name: Card
+  m_Name: Scanner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

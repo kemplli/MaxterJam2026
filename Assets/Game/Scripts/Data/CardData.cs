@@ -6,9 +6,16 @@ public class CardData : MonoBehaviour
 
     public int damage;
     public Sprite view;
+
+    public string name;
+    [TextArea(5,5)]
+    public string description;
 }
 
 public enum Cards
 {
-    Basic
+    Scanner,
+    EnteringTheCode,
+    Heat,
+    Sedative
 }

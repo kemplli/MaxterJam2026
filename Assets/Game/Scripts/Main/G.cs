@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.Localization.Editor;
 using System;
+using System.Resources;
 
 public static class G 
 {
@@ -15,12 +16,16 @@ public static class G
     public static UI ui;
     public static TypingManager typing;
     public static Events events;
+    public static GlobalVolumeController gVolCon;
 
     public static CardsArea area;
     public static Sack sack;
     public static Lever lever;
     public static CameraShaker cameraShaker;
     public static LevelManager levelManager;
+    public static ActionCounter actions;
+    public static Player player;
+    public static Tooltip tooltip;
 
     public static GameDynamicDataManager d_data;
     public static GameStaticDataManager s_data;
@@ -84,6 +89,9 @@ public class GameDynamicDataManager
 {
     private Transform parent;
 
+    private List<LevelDynamicData> levelDynamicData = new List<LevelDynamicData>();
+    private List<PlayerDynamicData> playerDynamicData = new List<PlayerDynamicData>();
+
     public GameDynamicDataManager()
     {
         Initialize();
@@ -93,9 +101,13 @@ public class GameDynamicDataManager
     {
         GameObject parent = new GameObject("DynamicData");
         this.parent = parent.transform;
+        GameObject.DontDestroyOnLoad(parent);
 
-        //List<GameObject> data = Resources.LoadAll<GameObject>("Data/Dynamic/Resources").ToList();
-        //CreateDynamicDataObjects<ResourceData>(data,ref resourceData);
+        List<GameObject> level = Resources.LoadAll<GameObject>("Data/Dynamic/Level").ToList();
+        CreateDynamicDataObjects<LevelDynamicData>(level,ref levelDynamicData);
+
+        List<GameObject> player = Resources.LoadAll<GameObject>("Data/Dynamic/Player").ToList();
+        CreateDynamicDataObjects<PlayerDynamicData>(player, ref playerDynamicData);
     }
 
     private void CreateDynamicDataObjects<T>(List<GameObject> objects, ref List<T> dataComponents)
@@ -110,4 +122,14 @@ public class GameDynamicDataManager
     }
 
     //GetData(SomeType someId) - return someList.Find(x => x.someId == someId);}
+
+    public LevelDynamicData GetLevelDynamicData()
+    {
+        return levelDynamicData.First();
+    }
+
+    public PlayerDynamicData GetPlayerDynamicData()
+    {
+        return playerDynamicData.First();
+    }
 }

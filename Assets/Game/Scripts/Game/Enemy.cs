@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using DG.Tweening;
 using TMPro;
 using System;
+using System.Collections;
 
 public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
@@ -13,6 +14,8 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     [SerializeField]
     private TMP_Text healthText;
+    [SerializeField]
+    private TMP_Text shieldText;
 
     [SerializeField]
     private GameObject deadPrefab;
@@ -22,6 +25,10 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
     [NonSerialized]
     public int health;
 
+    [NonSerialized]
+    public int shield;
+
+    public EnemyState state;
 
     protected override void ManagedInitialize()
     {
@@ -29,6 +36,7 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         data = G.s_data.GetEnemyData(id);
         health = data.health;
+        shield = data.shield;
 
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = data.view;
@@ -55,6 +63,7 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
     public override void ManagedUpdate()
     {
         healthText.text = health.ToString();
+        shieldText.text = shield.ToString();
     }
 
     private void OnDestroy()
@@ -66,14 +75,58 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (G.selectedEnemy == this)
         {
+            if (shield > 0)
+            {
+                if (damage == shield)
+                {
+                    BreakShield();
+                    return;
+                }
+                if (damage > shield)
+                {
+                    var healthDamage = damage - shield;
+                    health -= healthDamage;
+                    BreakShield();
+                    if (health <= 0)
+                    {
+                        Death();
+                    }
+                    return;
+                }
+                shield -= damage;
+
+                return;
+            }
             if (health > 0)
+            {
                 health -= damage;
+            }
         }
 
         if (health <= 0)
         {
             Death();
         }
+    }
+
+    private void BreakShield()
+    {
+        shield = 0;
+        shieldText.transform.parent.DOScale(0, 0.5f).SetEase(Ease.InOutQuad);
+    }
+
+    public virtual IEnumerator Attack()
+    {
+        yield return transform.DOPunchPosition(new Vector3(-0.5f, 0f, 0f), 0.2f, vibrato: 1);
+
+        G.player.TakeDamage(data.attackDamage);
+        G.feel.ShakeLight();
+        G.ui.SpawnFloatingMessage("Аттака -" + data.attackDamage);
+        G.gVolCon.VignetteFlash(0f,0.26f);
+
+        yield return new WaitForSeconds(0.8f);
+
+        yield break;
     }
 
     private void Death()
@@ -89,4 +142,12 @@ public enum Enemies
 {
     Basic,
     Eggs
+}
+
+public enum EnemyState
+{
+    Normal,
+    Frozen,
+    Fragile,
+    Rotten
 }

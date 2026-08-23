@@ -26,6 +26,8 @@ public class CardsArea : ManagedBehaviour
 
     private void UpdateCardsPosition(bool immediate = false)
     {
+        if(cards.Count == 0) return;
+
         float spacing = maxWidth / cards.Count;
         spacing = Mathf.Min(spacing, maxSpacing);
 

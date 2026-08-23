@@ -45,5 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  health: 5
-  view: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  health: 10
+  view: {fileID: 4801227835787818748, guid: c79b8bdc3b5e17e4c9524924dfceb79d, type: 3}
+  attackDamage: 1
+  startState: 0
+  shield: 10

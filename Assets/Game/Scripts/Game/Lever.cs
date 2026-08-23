@@ -2,6 +2,7 @@
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using System.Collections.Generic;
+using System;
 
 [DefaultExecutionOrder(-100)]
 public class Lever : ManagedBehaviour, IPointerDownHandler,IPointerUpHandler
@@ -32,6 +33,13 @@ public class Lever : ManagedBehaviour, IPointerDownHandler,IPointerUpHandler
         G.lever = this;
 
         startRotation = transform.rotation.eulerAngles;
+
+        G.events.onLoadingLevel += UpdateMovingProgress;
+    }
+
+    private void UpdateMovingProgress()
+    {
+        currentMovingProgress = 0;
     }
 
     public override void ManagedUpdate()
@@ -104,5 +112,10 @@ public class Lever : ManagedBehaviour, IPointerDownHandler,IPointerUpHandler
 
     public void FullWithDestinations(List<Vector2> dest) {
         GameMath.FullListWithOther(dest, ref currentDestinations);
+    }
+
+    private void OnDestroy()
+    {
+        G.events.onLoadingLevel -= UpdateMovingProgress;
     }
 }

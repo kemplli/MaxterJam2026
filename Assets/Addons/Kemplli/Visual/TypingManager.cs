@@ -12,6 +12,7 @@ using DG.Tweening;
 using Unity.VisualScripting;
 
 //TODO: Make text wrapping
+[DefaultExecutionOrder(-100)]
 public class TypingManager : MonoBehaviour
 {
     [Header("Main")]
@@ -50,6 +51,8 @@ public class TypingManager : MonoBehaviour
     private bool movingMonologueAuto;
 
     private bool isTyping;
+
+    public Action onEnding;
 
     private void Awake()
     {
@@ -100,17 +103,19 @@ public class TypingManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (!isTyping) return;
+        //    if (!isTyping) return;
+
+        if (textHolder == null) return;
 
         textHolder.ForceMeshUpdate();
         TMP_TextInfo textInfo = textHolder.textInfo;
 
         foreach (var effect in extraEffects)
         {
-            effect.Update(Time.time, textInfo);
+            effect.Update(Time.unscaledTime, textInfo);
         }
 
-        fadeInEffect.Update(Time.time, textInfo);
+        fadeInEffect.Update(Time.unscaledTime, textInfo);
 
         for (int i = 0; i < textInfo.meshInfo.Length; i++)
         {
@@ -149,7 +154,7 @@ public class TypingManager : MonoBehaviour
         {
             movingMonologue = true;
             StopAllCoroutines();
-            textHolder.DOFade(0, 0.5f).OnComplete(() =>
+            textHolder.DOFade(0, 0.5f).SetUpdate(true).OnComplete(() =>
             {
                 currentMonologue++;
                 currentText = textContainers[currentMonologue].Text;
@@ -163,12 +168,12 @@ public class TypingManager : MonoBehaviour
                 delayMs = startDelay;
                 StartCoroutine(Type(currentText));
             });
-            CustomCoroutine.WaitThenExecute(0.5f, () => { movingMonologue = false; movingMonologueAuto = false; });
+            CustomCoroutine.WaitThenExecute(0.5f, () => { movingMonologue = false; movingMonologueAuto = false;},unscaledTime: true);
         }
         else
         {
             isTyping = false;
-            textHolder.DOFade(0, 0.5f).OnComplete(() => StopAllCoroutines());
+            textHolder.DOFade(0, 0.5f).SetUpdate(true).OnComplete(() => { onEnding?.Invoke(); StopAllCoroutines(); });
         }
     }
 
@@ -319,7 +324,7 @@ public class TypingManager : MonoBehaviour
 
             i++;
             if(character != ' ')
-            yield return new WaitForSeconds(delayMs / 1000f);
+            yield return new WaitForSecondsRealtime(delayMs / 1000f);
         }
 
         ClearTextFromEvents();

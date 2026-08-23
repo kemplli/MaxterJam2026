@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using System;
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -28,6 +29,8 @@ public class Transition : MonoBehaviour
     {
         G.transition = this;
 
+        DontDestroyOnLoad(gameObject);
+
         if (!inUI)
             spriteRenderer = GetComponent<SpriteRenderer>();
         else
@@ -37,6 +40,8 @@ public class Transition : MonoBehaviour
             material = spriteRenderer.material;
         else
             material = image.material;
+
+      // material.SetFloat("_Progress", 0);
     }
 
     private IEnumerator FadeInCoroutine(Action action)
@@ -77,6 +82,9 @@ public class Transition : MonoBehaviour
     private IEnumerator FadeOutCoroutine()
     {
         transform.rotation = Quaternion.Euler(0f, 0f, 180f);
+
+        yield return new WaitForSecondsRealtime(0.5f);
+
         if (!withMaterial)
         {
             float alpha = 1f;
@@ -116,5 +124,10 @@ public class Transition : MonoBehaviour
         StopAllCoroutines();
         if(sound != string.Empty) G.audio.PlaySound(sound, 1f, transform.position);
         StartCoroutine(TransitionCoroutine(fadeInAction));
+    }
+
+    public void FadeOut()
+    {
+        StartCoroutine(FadeOutCoroutine());
     }
 }

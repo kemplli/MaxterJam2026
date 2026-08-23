@@ -68,9 +68,9 @@ public class DraggableSmoothDamp : ManagedBehaviour, IPointerDownHandler, IPoint
             if (!collider.enabled) collider.enabled = true;
 
             state = DragState.Idle;
-            transform.DOKill();
-            transform.DOScale(startScale, 0.25f);
             OnRelease();
+          //  transform.DOKill();
+          //  transform.DOScale(startScale, 0.25f);
         }
     }
 
@@ -98,6 +98,7 @@ public class DraggableSmoothDamp : ManagedBehaviour, IPointerDownHandler, IPoint
     {
         transform.DOKill();
         transform.DOScale(startScale * 1.2f, 0.25f);
+        PointerEnter();
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -107,7 +108,11 @@ public class DraggableSmoothDamp : ManagedBehaviour, IPointerDownHandler, IPoint
             transform.DOKill();
             transform.DOScale(startScale, 0.25f);
         }
+        PointerExit();
     }
+
+    protected virtual void PointerEnter() { }
+    protected virtual void PointerExit() { }
 }
 
 public enum DragState

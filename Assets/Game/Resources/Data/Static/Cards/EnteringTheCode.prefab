@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 498543330845692638}
   - component: {fileID: 8485461715410476500}
   m_Layer: 0
-  m_Name: BasicCard
+  m_Name: EnteringTheCode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,6 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7cc63b34ffc2a045ac75e283438dead, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
-  damage: 5
+  id: 1
+  damage: 1
   view: {fileID: 0}
+  name: "\u0412\u0432\u043E\u0434 \u043A\u043E\u0434\u0430"
+  description: "\u041D\u0435 \u043B\u043E\u043C\u0430\u0435\u0442 \u0445\u0440\u0443\u043F\u043A\u0438\u0435
+    \u043F\u0440\u043E\u0434\u0443\u043A\u0442\u044B, \u0443\u0440\u043E\u043D: 1"
