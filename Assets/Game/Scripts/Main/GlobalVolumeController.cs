@@ -26,8 +26,9 @@ public class GlobalVolumeController : MonoBehaviour
         globalVolume.weight = weight;
     }
 
-    private IEnumerator VignetteFlashCoroutine(float startValue, float endValue)
+    private IEnumerator VignetteFlashCoroutine(float startValue, float endValue,Color color)
     {
+        vignette.color.value = color;
         while (vignette.intensity.value < endValue)
         {
             vignette.intensity.value += Time.deltaTime;
@@ -46,9 +47,9 @@ public class GlobalVolumeController : MonoBehaviour
 
 
 
-    public void VignetteFlash(float startValue, float endValue)
+    public void VignetteFlash(float startValue, float endValue,Color color)
     {
         StopAllCoroutines();
-        StartCoroutine(VignetteFlashCoroutine(startValue, endValue));
+        StartCoroutine(VignetteFlashCoroutine(startValue, endValue,color));
     }
 }

@@ -10,6 +10,8 @@ public class CardData : MonoBehaviour
     public string name;
     [TextArea(5,5)]
     public string description;
+
+    public bool whenRelease = true;
 }
 
 public enum Cards

@@ -547,7 +547,7 @@ MonoBehaviour:
   healthText: {fileID: 1409710179656796096}
   shieldText: {fileID: 4408989641983697393}
   deadPrefab: {fileID: 6317614470653612735, guid: 52216c83a46de934b8358b10f4bb56ba, type: 3}
-  state: 0
+  state: 1
 --- !u!61 &5219515000236594905
 BoxCollider2D:
   m_ObjectHideFlags: 0

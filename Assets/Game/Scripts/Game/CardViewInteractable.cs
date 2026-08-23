@@ -1,10 +1,15 @@
 ﻿using DG.Tweening;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class CardViewInteractable : DraggableSmoothDamp
 {
     public Cards id;
 
     private CardData data;
+
+    [SerializeReference,SubclassSelector]
+    private ICard logic;
 
     protected override void ManagedInitialize()
     {
@@ -14,7 +19,7 @@ public class CardViewInteractable : DraggableSmoothDamp
 
     protected override void OnRelease()
     {
-        if (G.selectedEnemy != null)
+        if (G.selectedEnemy != null && data.whenRelease)
         {
             G.area.Release(this);
 
@@ -22,7 +27,7 @@ public class CardViewInteractable : DraggableSmoothDamp
 
             this.enabled = false;
 
-            G.events.onRelease.Invoke(data.damage);
+            logic.Execute(this, data,G.selectedEnemy);
 
             transform.DOKill();
             transform.DOScale(0, 0.1f)
@@ -40,4 +45,28 @@ public class CardViewInteractable : DraggableSmoothDamp
     {
         G.tooltip.Hide();
     }
+
+    protected override void PointerDown()
+    {
+        if (!data.whenRelease)
+        {
+            G.area.Release(this);
+
+            if (moveable != null) moveable.enabled = false;
+
+            this.enabled = false;
+
+            logic.Execute(this,data,G.selectedEnemy);
+
+            transform.DOKill();
+            transform.DOScale(0, 0.1f)
+                .SetUpdate(true)
+                .OnComplete(() => { Destroy(gameObject); G.feel.ShakeLight(); });
+        }
+    }
+}
+
+public interface ICard
+{
+    public void Execute(CardViewInteractable card,CardData data,Enemy enemy);
 }

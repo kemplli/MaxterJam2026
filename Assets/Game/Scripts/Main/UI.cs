@@ -19,11 +19,13 @@ public class UI : MonoBehaviour
 
     public GameObject floatingMessagePrefab;
 
-    public void SpawnFloatingMessage(string text)
+    public void SpawnFloatingMessage(string text,Color color)
     {
         var inst = GameObject.Instantiate(floatingMessagePrefab,floatingMessagePrefab.transform.position, Quaternion.identity);
         inst.transform.parent = transform;
-        inst.GetComponent<TMP_Text>().text = text;
+        var textComp = inst.GetComponent<TMP_Text>();   
+        textComp.text = text;
+        textComp.color = color;
     }
 
 }

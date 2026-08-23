@@ -156,6 +156,14 @@ MonoBehaviour:
   moveable: {fileID: 1343825816141385197}
   sorting: 1
   id: 3
+  logic:
+    rid: 2058300585741910210
+  references:
+    version: 2
+    RefIds:
+    - rid: 2058300585741910210
+      type: {class: HealCard, ns: , asm: Assembly-CSharp}
+      data: 
 --- !u!114 &1343825816141385197
 MonoBehaviour:
   m_ObjectHideFlags: 0

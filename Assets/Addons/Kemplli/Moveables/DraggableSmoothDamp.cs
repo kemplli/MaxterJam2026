@@ -40,6 +40,7 @@ public class DraggableSmoothDamp : ManagedBehaviour, IPointerDownHandler, IPoint
     public void OnPointerUp(PointerEventData eventData)
     {
         StopDrag(eventData);
+        PointerDown();
         //moveable.enabled = false;
     }
 
@@ -113,6 +114,7 @@ public class DraggableSmoothDamp : ManagedBehaviour, IPointerDownHandler, IPoint
 
     protected virtual void PointerEnter() { }
     protected virtual void PointerExit() { }
+    protected virtual void PointerDown() { }
 }
 
 public enum DragState

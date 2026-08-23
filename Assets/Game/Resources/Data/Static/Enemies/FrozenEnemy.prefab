@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3788833623201906407}
   - component: {fileID: 4147258432323334965}
   m_Layer: 0
-  m_Name: BasicEnemy
+  m_Name: FrozenEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -48,5 +48,5 @@ MonoBehaviour:
   health: 10
   view: {fileID: 4801227835787818748, guid: c79b8bdc3b5e17e4c9524924dfceb79d, type: 3}
   attackDamage: 1
-  startState: 0
+  startState: 1
   shield: 10

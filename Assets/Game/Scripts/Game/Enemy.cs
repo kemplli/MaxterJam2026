@@ -38,6 +38,8 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
         health = data.health;
         shield = data.shield;
 
+        state = data.startState;
+
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = data.view;
 
@@ -109,20 +111,30 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
     }
 
-    private void BreakShield()
+    public void BreakShield()
     {
-        shield = 0;
-        shieldText.transform.parent.DOScale(0, 0.5f).SetEase(Ease.InOutQuad);
+        if (shield > 0)
+        {
+            shield = 0;
+            shieldText.transform.parent.DOScale(0, 0.5f).SetEase(Ease.InOutQuad);
+            G.ui.SpawnFloatingMessage("Защита снята!", new Color(1f, 0.647f, 0f));
+        }
     }
 
     public virtual IEnumerator Attack()
     {
         yield return transform.DOPunchPosition(new Vector3(-0.5f, 0f, 0f), 0.2f, vibrato: 1);
 
-        G.player.TakeDamage(data.attackDamage);
+     //   if (state != EnemyState.Rotten)
+      //  {
+      //      G.player.TakeDamage(data.attackDamage);
+     //   }
+    //    else
+     //   {
+    //    }
         G.feel.ShakeLight();
-        G.ui.SpawnFloatingMessage("Аттака -" + data.attackDamage);
-        G.gVolCon.VignetteFlash(0f,0.26f);
+        G.ui.SpawnFloatingMessage("Аттака -" + data.attackDamage, Color.red);
+        G.gVolCon.VignetteFlash(0f,0.26f,Color.red);
 
         yield return new WaitForSeconds(0.8f);
 
