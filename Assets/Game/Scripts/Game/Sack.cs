@@ -9,7 +9,7 @@ public class Sack : DraggableSmoothDamp
 {
     public int bodiesCount;
 
-    private int maxBodiesCount = 2;
+    private int maxBodiesCount = 3;
 
     private List<Enemies> typesIn = new List<Enemies>();
 
@@ -26,6 +26,8 @@ public class Sack : DraggableSmoothDamp
 
     private Synergy synergy;
 
+    public SynergyTypes synergyTypes = SynergyTypes.None;
+
     protected override void ManagedInitialize()
     {
         base.ManagedInitialize();
@@ -34,6 +36,8 @@ public class Sack : DraggableSmoothDamp
         renderer.sprite = sprites[0];
 
         synergy = new Synergy();
+
+        synergy.sack = this;
     }
 
     protected override void PointerEnter()
@@ -67,19 +71,23 @@ public class Sack : DraggableSmoothDamp
         Destroy(dead.gameObject);
         bodiesCount++;
         transform.DOScale(transform.localScale + new Vector3(0.2f, 0.2f,0f), 0.5f);
-        description += " " + dead.name;
-        if (synergy.first != Enemies.None && synergy.last == Enemies.None)
+        if (synergy.first != Enemies.None && synergy.second != Enemies.None && synergy.last == Enemies.None)
         {
             synergy.last = dead.enemyType;
-            Debug.Log("Second");
+            description += "," + dead.name;
+        }
+        if (synergy.first != Enemies.None && synergy.second == Enemies.None)
+        {
+            synergy.second = dead.enemyType;
+            description += "," + dead.name;
         }
         if (synergy.first == Enemies.None)
         {
             synergy.first = dead.enemyType;
-            Debug.Log(synergy);
+            description += " " + dead.name;
         }
 
-        if (synergy.first != Enemies.None && synergy.last != Enemies.None) G.synergy.synergies.Add(synergy);
+        if (synergy.first != Enemies.None && synergy.second != Enemies.None) G.synergy.synergies.Add(synergy);
 
         UpdateSprite(bodiesCount);
     }
@@ -94,7 +102,9 @@ public class Sack : DraggableSmoothDamp
 
     private void UpdateSprite(int bodies)
     {
-        renderer.sprite = sprites[bodies];
+        if (bodies == 0) renderer.sprite = sprites[0];
+        if(bodies == 1) renderer.sprite = sprites[1];
+        if(bodies == 3) renderer.sprite = sprites[2];
     }
 
     protected override void PointerUp()
@@ -119,13 +129,17 @@ public class Sack : DraggableSmoothDamp
 public class Synergy
 {
     public Enemies first;
+    public Enemies second;
     public Enemies last;
 
     public SynergyTypes type;
+
+    public Sack sack;
 }
 
 public enum SynergyTypes
 {
     None,
-    ColaMentos
+    ColaMentos,
+    MechanicPringles
 }

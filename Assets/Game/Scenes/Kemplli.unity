@@ -1050,7 +1050,7 @@ MonoBehaviour:
   levels:
   - enemies:
     - {fileID: 6258875181262441548, guid: 1332a656c5d6d71428868eb5d36f93db, type: 3}
-    - {fileID: 6258875181262441548, guid: 1eeac828a95d3114abe69afcbdfb96e2, type: 3}
+    - {fileID: 6258875181262441548, guid: 33086918625080b4b98e41d5e00e0e4c, type: 3}
     - {fileID: 6258875181262441548, guid: 1332a656c5d6d71428868eb5d36f93db, type: 3}
     enemiesPositions:
     - {x: 4.5, y: -0.88}
@@ -1847,6 +1847,51 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &810883681
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 810883682}
+  - component: {fileID: 810883683}
+  m_Layer: 0
+  m_Name: SynergyManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &810883682
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810883681}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.193254, y: -0.68086874, z: -0.054919604}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &810883683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 810883681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b3af8a03b77a8c419656f7798c0f67d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  synergies: []
 --- !u!1 &854394995
 GameObject:
   m_ObjectHideFlags: 0
@@ -9066,3 +9111,4 @@ SceneRoots:
   - {fileID: 1869591319}
   - {fileID: 2093331597}
   - {fileID: 610078108}
+  - {fileID: 810883682}

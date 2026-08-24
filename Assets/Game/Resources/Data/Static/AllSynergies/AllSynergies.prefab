@@ -45,6 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   synergies:
-  - first: 1
-    last: 2
+  - first: 4
+    second: 11
+    last: 0
     type: 1
+  - first: 9
+    second: 10
+    last: 8
+    type: 2

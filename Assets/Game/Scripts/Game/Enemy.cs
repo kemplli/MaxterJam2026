@@ -54,8 +54,11 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         G.selectedEnemy = this;
 
-        transform.DOKill();
-        transform.DOScale(startScale * 1.2f,0.25f);
+        if (!G.main.enemyTurn)
+        {
+            transform.DOKill();
+            transform.DOScale(startScale * 1.2f, 0.25f);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -180,12 +183,24 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
     private void Death()
     {
         transform.DOKill();
-        var inst = GameObject.Instantiate(deadPrefab, transform.position, deadPrefab.transform.rotation);
-        inst.GetComponent<SpriteRenderer>().sprite = spriteRenderer.sprite;
-        inst.transform.localScale = transform.localScale;
-        var dead = inst.GetComponent<DeadEnemyInteractable>();
-        dead.name = data.name;
-        G.levelManager.deadBodies.Add(dead);
+        if (data.deadPrefab == null)
+        {
+            var inst = GameObject.Instantiate(deadPrefab, transform.position, deadPrefab.transform.rotation);
+            inst.GetComponent<SpriteRenderer>().sprite = spriteRenderer.sprite;
+            inst.transform.localScale = transform.localScale;
+            var dead = inst.GetComponent<DeadEnemyInteractable>();
+            dead.name = data.name;
+            dead.enemyType = id;
+            G.levelManager.deadBodies.Add(dead);
+        }
+        else
+        {
+            var inst = GameObject.Instantiate(data.deadPrefab, transform.position, deadPrefab.transform.rotation);
+            var dead = inst.GetComponent<DeadEnemyInteractable>();
+            dead.name = data.name;
+            dead.enemyType = id;
+            G.levelManager.deadBodies.Add(dead);
+        }
         G.levelManager.currentEnemyCount--;
         Destroy(gameObject);
     }
@@ -194,8 +209,18 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
 public enum Enemies
 {
     None,
-    Basic,
-    Eggs
+    Eggs,
+    Tomato,
+    Milk,
+    Cola,
+    Sosiski,
+    Pelmen,
+    PachkaPelmeni,
+    Sponge,
+    Pringles,
+    Glove,
+    Mentos,
+    SmallSosiska
 }
 
 public enum EnemyState

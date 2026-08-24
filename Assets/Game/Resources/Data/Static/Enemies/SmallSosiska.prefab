@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3788833623201906407}
   - component: {fileID: 4147258432323334965}
   m_Layer: 0
-  m_Name: PoisonEnemy
+  m_Name: SmallSosiska
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,11 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99139fb859b39c74dbc68014c102f227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 2
+  id: 12
   health: 1
-  view: {fileID: -1675025149711837622, guid: c79b8bdc3b5e17e4c9524924dfceb79d, type: 3}
+  view: {fileID: -728344590348886589, guid: 424c5bfb9ce473c468253fdebb0ed2b2, type: 3}
   attackDamage: 1
-  startState: 3
+  startState: 0
   shield: 0
-  poison: 1
-  name: "\u041F\u043E\u043C\u0438\u0434\u043E\u0440"
+  poison: 0
+  name: "\u0421\u043E\u0441\u0438\u0441\u043E\u0447\u043A\u0430"
+  deadPrefab: {fileID: 6258875181262441548, guid: f093a71d411ff984183c3bc996d52ecc, type: 3}

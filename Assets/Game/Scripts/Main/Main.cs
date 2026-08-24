@@ -50,16 +50,16 @@ public class Main : MonoBehaviour
 
             if (!winned)
             {
-                Win();
+                G.tooltip.Hide();
+                StartCoroutine(Win());
                 winned = true;
             }
         }
     }
 
-    private void Win()
+    private IEnumerator Win()
     {
-        Debug.Log(G.synergy);
-        StartCoroutine(G.synergy.CheckSynergies());
+        yield return StartCoroutine(G.synergy.CheckSynergies());
         G.events.onWin.Invoke();
     }
 

@@ -12,4 +12,6 @@ public class EnemyData : MonoBehaviour
     public int poison;
 
     public string name;
+
+    public GameObject deadPrefab;
 }
