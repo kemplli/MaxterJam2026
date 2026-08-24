@@ -44,9 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99139fb859b39c74dbc68014c102f227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
-  health: 10
+  id: 1
+  health: 1
   view: {fileID: 4801227835787818748, guid: c79b8bdc3b5e17e4c9524924dfceb79d, type: 3}
   attackDamage: 1
   startState: 1
-  shield: 10
+  shield: 1
+  poison: 0
+  name: "\u041A\u0430\u0440\u0442\u043E\u0448\u043A\u0430"

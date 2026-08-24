@@ -9,4 +9,7 @@ public class EnemyData : MonoBehaviour
     public int attackDamage;
     public EnemyState startState;
     public int shield;
+    public int poison;
+
+    public string name;
 }

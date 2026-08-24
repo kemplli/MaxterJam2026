@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEditor.Localization.Editor;
 using System;
 using System.Resources;
+using UnityEngine.SceneManagement;
 
 public static class G 
 {
@@ -26,6 +27,7 @@ public static class G
     public static ActionCounter actions;
     public static Player player;
     public static Tooltip tooltip;
+    public static SynergyManager synergy;
 
     public static GameDynamicDataManager d_data;
     public static GameStaticDataManager s_data;
@@ -56,12 +58,16 @@ public static class G
     }
 
     public static Destroyer GC;
+
+    public static Color darkGreen = new Color(0f, 0.3f, 0.15f, 1f);
 }
 
 public class GameStaticDataManager
 {
     private List<CardData> cards = new List<CardData>();
     private List<EnemyData> enemies = new List<EnemyData>();
+    private AllSynergiesData allSynergies;
+    private List<SynergyData> synergies = new List<SynergyData>();
 
     public GameStaticDataManager()
     {
@@ -78,10 +84,22 @@ public class GameStaticDataManager
         return enemies.Find(x => x.id == id);
     }
 
+    public AllSynergiesData GetAllSynergiesData()
+    {
+        return allSynergies;
+    }
+
+    public SynergyData GetSynergyData(SynergyTypes id)
+    {
+        return synergies.Find(x => x.type == id);
+    }
+
     private void Initialize()
     {
         cards = Resources.LoadAll<CardData>("Data/Static/Cards").ToList();
         enemies = Resources.LoadAll<EnemyData>("Data/Static/Enemies").ToList();
+        allSynergies = Resources.Load<AllSynergiesData>("Data/Static/AllSynergies/AllSynergies");
+        synergies = Resources.LoadAll<SynergyData>("Data/Static/Synergies").ToList();
     }
 }
 
@@ -104,7 +122,7 @@ public class GameDynamicDataManager
         GameObject.DontDestroyOnLoad(parent);
 
         List<GameObject> level = Resources.LoadAll<GameObject>("Data/Dynamic/Level").ToList();
-        CreateDynamicDataObjects<LevelDynamicData>(level,ref levelDynamicData);
+        CreateDynamicDataObjects<LevelDynamicData>(level, ref levelDynamicData);
 
         List<GameObject> player = Resources.LoadAll<GameObject>("Data/Dynamic/Player").ToList();
         CreateDynamicDataObjects<PlayerDynamicData>(player, ref playerDynamicData);
@@ -132,4 +150,19 @@ public class GameDynamicDataManager
     {
         return playerDynamicData.First();
     }
+
+    public void ResetAndRestartGame()
+    {
+        levelDynamicData.Clear();
+        playerDynamicData.Clear();
+
+        if (parent != null)
+        {
+            GameObject.Destroy(parent.gameObject);
+        }
+
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
+    }
+
 }

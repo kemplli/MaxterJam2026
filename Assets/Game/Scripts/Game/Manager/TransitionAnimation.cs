@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TransitionAnimation : ManagedBehaviour
+public class TransitionAnimation : TypingText
 {
     protected override void ManagedInitialize()
     {
@@ -9,14 +11,25 @@ public class TransitionAnimation : ManagedBehaviour
 
         G.audio.SetLoopAndPlay("manager", 0f);
         G.audio.FadeInLoop(1f, 1f, 0);
+
+        G.typing.onEnding += End;
+
+        StartCoroutine(MainSequence());
+    }
+
+    private void End()
+    {
+        G.transition.TransitioN(() => SceneManager.LoadScene(0));
+        G.audio.FadeOutLoop(1f, 0);
     }
 
     public override void ManagedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            G.transition.TransitioN(() => SceneManager.LoadScene(0));
-            G.audio.FadeOutLoop(1f, 0);
-        }
+    }
+
+    private IEnumerator MainSequence()
+    {
+        yield return new WaitForSeconds(1f);
+        StartTyping();
     }
 }

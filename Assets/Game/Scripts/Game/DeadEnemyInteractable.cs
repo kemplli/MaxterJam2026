@@ -4,6 +4,10 @@ public class DeadEnemyInteractable : DraggableSmoothDamp
 {
     public SpriteRenderer spriteRenderer;
 
+    public Enemies enemyType;
+
+    public string name;
+
     protected override void ManagedInitialize()
     {
         base.ManagedInitialize();
@@ -14,7 +18,16 @@ public class DeadEnemyInteractable : DraggableSmoothDamp
     {
         if (G.sack != null)
         {
-            G.sack.Claim(this);
+            if (!G.sack.full)
+            {
+                G.sack.Claim(this);
+            }
+            else
+            {
+                G.feel.ShakeLight();
+                G.ui.SpawnFloatingMessage("Мешок полон!", Color.red);
+                G.gVolCon.VignetteFlash(0f, 0.26f, Color.red);
+            }
         }
     }
 }

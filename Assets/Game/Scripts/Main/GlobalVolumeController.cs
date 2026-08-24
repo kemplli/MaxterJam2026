@@ -31,7 +31,7 @@ public class GlobalVolumeController : MonoBehaviour
         vignette.color.value = color;
         while (vignette.intensity.value < endValue)
         {
-            vignette.intensity.value += Time.deltaTime;
+            vignette.intensity.value += Time.deltaTime * 2;
             yield return new WaitForEndOfFrame();
         }
 

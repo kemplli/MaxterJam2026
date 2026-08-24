@@ -5,7 +5,7 @@ using UnityEngine;
 [Serializable]
 public class HeatCard : ICard
 {
-    public void Execute(CardViewInteractable card, CardData data,Enemy enemy)
+    public void Execute(CardViewInteractable card, CardData data,Enemy enemy,Vector2 position)
     {
         if (enemy.state != EnemyState.Frozen)
         {

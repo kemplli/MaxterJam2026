@@ -12,6 +12,10 @@ public class CardData : MonoBehaviour
     public string description;
 
     public bool whenRelease = true;
+    public bool cooldown;
+    public int cooldownAmount;
+
+    public int vampireDamage;
 }
 
 public enum Cards
@@ -19,5 +23,6 @@ public enum Cards
     Scanner,
     EnteringTheCode,
     Heat,
-    Sedative
+    Sedative,
+    SuperCard
 }

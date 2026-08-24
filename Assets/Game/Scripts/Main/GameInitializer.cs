@@ -2,8 +2,10 @@
 
 public static class GameInitializer
 {
+    public static bool failed;
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    private static void InitGame()
+    public static void InitGame()
     {
         G.d_data = new GameDynamicDataManager();
         G.s_data = new GameStaticDataManager();

@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2684299284768578146}
   - component: {fileID: 4916960228211336963}
-  - component: {fileID: 6952708496510486957}
   - component: {fileID: 4733263954380403700}
   - component: {fileID: 1343825816141385197}
   - component: {fileID: 394488232562887997}
+  - component: {fileID: -7925621275253898529}
   m_Layer: 0
   m_Name: Scanner
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2.9490268, y: -3.2013397, z: -6.241515}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -91,8 +91,62 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &6952708496510486957
-PolygonCollider2D:
+--- !u!114 &4733263954380403700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8327600661532442907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a53674c415e71f9489b798310dcfc350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveable: {fileID: 1343825816141385197}
+  sorting: 1
+  defaultSortingLayer: 
+  selecting: 1
+  id: 0
+  logic:
+    rid: 2058300585741910196
+  references:
+    version: 2
+    RefIds:
+    - rid: 2058300585741910196
+      type: {class: DamageCard, ns: , asm: Assembly-CSharp}
+      data: 
+--- !u!114 &1343825816141385197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8327600661532442907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7f4f57b9f87f5c479e297690b29eae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetPosition: {x: 0, y: 0}
+  smoothTime: 0.05
+  maxVelocity: 100
+  reachRange: 0.1
+  selfDestruct: 0
+--- !u!210 &394488232562887997
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8327600661532442907}
+  m_Enabled: 1
+  m_SortingLayerID: -719430619
+  m_SortingLayer: 2
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
+--- !u!61 &-7925621275253898529
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -135,61 +189,5 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0, y: 0.5773587}
-      - {x: -0.5, y: -0.28866667}
-      - {x: 0.5, y: -0.28866667}
-  m_UseDelaunayMesh: 0
---- !u!114 &4733263954380403700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8327600661532442907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a53674c415e71f9489b798310dcfc350, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveable: {fileID: 1343825816141385197}
-  sorting: 1
-  id: 0
-  logic:
-    rid: 2058300585741910196
-  references:
-    version: 2
-    RefIds:
-    - rid: 2058300585741910196
-      type: {class: DamageCard, ns: , asm: Assembly-CSharp}
-      data: 
---- !u!114 &1343825816141385197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8327600661532442907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7f4f57b9f87f5c479e297690b29eae6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  targetPosition: {x: 0, y: 0}
-  smoothTime: 0.05
-  maxVelocity: 100
-  reachRange: 0.1
-  selfDestruct: 0
---- !u!210 &394488232562887997
-SortingGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8327600661532442907}
-  m_Enabled: 1
-  m_SortingLayerID: -719430619
-  m_SortingLayer: 2
-  m_SortingOrder: 0
-  m_SortAtRoot: 0
+  m_Size: {x: 0.41, y: 0.64}
+  m_EdgeRadius: 0

@@ -7,4 +7,5 @@ public class Events
     public Action onLoadingLevel;
     public Action actionsLeft;
     public Action onTurnEnd;
+    public Action onHealing;
 }

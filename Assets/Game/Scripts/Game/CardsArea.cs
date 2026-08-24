@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+[DefaultExecutionOrder(-100)]
 public class CardsArea : ManagedBehaviour
 {
     public List<CardViewInteractable> cards = new List<CardViewInteractable>();
@@ -14,6 +15,12 @@ public class CardsArea : ManagedBehaviour
     [SerializeField]
     private float posY;
 
+    [SerializeField]
+    private float maxAngle;
+
+    [SerializeField]
+    private float yPosIntensity;
+
     protected override void ManagedInitialize()
     {
         G.area = this;
@@ -26,21 +33,39 @@ public class CardsArea : ManagedBehaviour
 
     private void UpdateCardsPosition(bool immediate = false)
     {
-        if(cards.Count == 0) return;
+        if (cards.Count == 0) return;
 
         float spacing = maxWidth / cards.Count;
         spacing = Mathf.Min(spacing, maxSpacing);
-
         float leftAnchor = (cards.Count * -spacing * 0.5f) + (spacing * 0.5f);
-        foreach (var card in cards)
+
+        float t = immediate ? 1f : Time.deltaTime * 10;
+
+        for (int index = 0; index < cards.Count; index++)
         {
-            if (!card.isDragging)
+            var card = cards[index];
+
+            if (card.isDragging) continue;
+
+            float xPos = leftAnchor + (spacing * index) - 1f; 
+
+            float normalizeIndex = 0f;
+            if (cards.Count > 1)
             {
-                int index = cards.IndexOf(card);
-                float xPos = leftAnchor + (spacing * index);
-                card.transform.position = Vector2.Lerp(card.transform.position, new Vector2(xPos, posY),
-                    immediate ? 1f : Time.deltaTime * 10f);
+                normalizeIndex = (float)index / (cards.Count - 1);
+                normalizeIndex = (normalizeIndex * 2f) - 1f;      
             }
+
+            float cardAngle = -normalizeIndex * maxAngle;
+            Quaternion targetRot = Quaternion.Euler(0, 0, cardAngle);
+
+            float yOffset = (1f - (normalizeIndex * normalizeIndex)) * yPosIntensity;
+            float targetY = posY + yOffset;
+
+            Vector2 targetPos = new Vector2(xPos, targetY);
+
+            card.transform.position = Vector2.Lerp(card.transform.position, targetPos, t);
+            card.transform.rotation = Quaternion.Lerp(card.transform.rotation, targetRot, t);
         }
     }
 

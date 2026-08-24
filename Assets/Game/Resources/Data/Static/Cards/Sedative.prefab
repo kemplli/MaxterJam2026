@@ -46,9 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 3
   damage: 5
-  view: {fileID: 0}
+  view: {fileID: -8109957991736853345, guid: 967ec64859072cb41a30e1dfe26ef1eb, type: 3}
   name: "\u0423\u0441\u043F\u043E\u043A\u043E\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0435"
   description: "\u0412\u043E\u0441\u0441\u0442\u0430\u043D\u0430\u0432\u043B\u0438\u0432\u0430\u0435\u0442
     \u0437\u0434\u043E\u0440\u043E\u0432\u044C\u0435, \u0432\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u043B\u0435\u043D\u0438\u0435:
     5HP"
   whenRelease: 0
+  cooldown: 1
+  cooldownAmount: 2

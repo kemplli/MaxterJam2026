@@ -13,6 +13,7 @@ public class ActionCounter : ManagedBehaviour
         G.events.onRelease += OnRelease;
         G.events.onLoadingLevel += ReloadCounter;
         G.events.onTurnEnd += ReloadCounter;
+        G.events.onHealing += UpdateCounter;
 
         counter = maxActions;
     }

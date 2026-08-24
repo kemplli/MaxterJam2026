@@ -13,14 +13,19 @@ public class DraggableSmoothDamp : ManagedBehaviour, IPointerDownHandler, IPoint
 
     Vector3 offset;
 
-    private SortingGroup sortingGroup;
+    protected SortingGroup sortingGroup;
 
     private Collider2D collider;
 
     private Vector3 startScale;
     public bool sorting;
 
+    public string defaultSortingLayer;
+
     public DragState state { get; private set; } = DragState.Idle;
+
+    [SerializeField]
+    private bool selecting = true;
 
     private void Start()
     {
@@ -29,18 +34,20 @@ public class DraggableSmoothDamp : ManagedBehaviour, IPointerDownHandler, IPoint
         collider = GetComponent<Collider2D>();
         startScale = transform.localScale;
         moveable.targetPosition = transform.parent != null ? transform.localPosition : transform.position;
+        defaultSortingLayer = sortingGroup.sortingLayerName;
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         //   moveable.enabled = true;
         StartDrag(eventData);
+        PointerDown();
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         StopDrag(eventData);
-        PointerDown();
+        PointerUp();
         //moveable.enabled = false;
     }
 
@@ -55,7 +62,8 @@ public class DraggableSmoothDamp : ManagedBehaviour, IPointerDownHandler, IPoint
         isDragging = true;
         Vector3 screenPosition = mainCamera.WorldToScreenPoint(transform.position);
         offset = transform.position - mainCamera.ScreenToWorldPoint(new Vector3(eventData.position.x, eventData.position.y, screenPosition.z));
-        if(collider.enabled) collider.enabled = false;
+        if(collider.enabled && selecting) collider.enabled = false;
+        sortingGroup.sortingLayerName = "Dragging";
 
         state = DragState.Dragging;
     }
@@ -66,7 +74,8 @@ public class DraggableSmoothDamp : ManagedBehaviour, IPointerDownHandler, IPoint
         {
             isDragging = false;
             moveable.targetPosition = transform.position;
-            if (!collider.enabled) collider.enabled = true;
+            if (!collider.enabled && selecting) collider.enabled = true;
+            sortingGroup.sortingLayerName = defaultSortingLayer;
 
             state = DragState.Idle;
             OnRelease();
@@ -91,14 +100,19 @@ public class DraggableSmoothDamp : ManagedBehaviour, IPointerDownHandler, IPoint
     {
         if(sorting)
         sortingGroup.sortingOrder = isDragging ? 1000 : 0;
+
+        sortingGroup.sortingLayerName = defaultSortingLayer;
     }
 
     protected virtual void OnRelease() { }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        transform.DOKill();
-        transform.DOScale(startScale * 1.2f, 0.25f);
+        if (selecting)
+        {
+            transform.DOKill();
+            transform.DOScale(startScale * 1.2f, 0.25f);
+        }
         PointerEnter();
     }
 
@@ -106,8 +120,11 @@ public class DraggableSmoothDamp : ManagedBehaviour, IPointerDownHandler, IPoint
     {
         if (!isDragging)
         {
-            transform.DOKill();
-            transform.DOScale(startScale, 0.25f);
+            if (selecting)
+            {
+                transform.DOKill();
+                transform.DOScale(startScale, 0.25f);
+            }
         }
         PointerExit();
     }
@@ -115,6 +132,7 @@ public class DraggableSmoothDamp : ManagedBehaviour, IPointerDownHandler, IPoint
     protected virtual void PointerEnter() { }
     protected virtual void PointerExit() { }
     protected virtual void PointerDown() { }
+    protected virtual void PointerUp() { }
 }
 
 public enum DragState
@@ -122,3 +140,4 @@ public enum DragState
     Idle,
     Dragging
 }
+

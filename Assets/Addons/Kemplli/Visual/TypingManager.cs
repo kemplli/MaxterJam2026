@@ -207,7 +207,7 @@ public class TypingManager : MonoBehaviour
         else
         {
             isTyping = false;
-            textHolder.DOFade(0, 0.5f).OnComplete(() => StopAllCoroutines());
+            textHolder.DOFade(0, 0.5f).OnComplete(() => { onEnding?.Invoke(); StopAllCoroutines(); });
         }
     }
 

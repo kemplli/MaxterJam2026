@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BG
+    uniqueID: 482896243
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
@@ -52,6 +55,15 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 3292647743
+    locked: 0
+  - name: Dragging
+    uniqueID: 3395142609
+    locked: 0
+  - name: Tooltip
+    uniqueID: 424151339
+    locked: 0
+  - name: Particles
+    uniqueID: 1966339871
     locked: 0
   - name: Transition
     uniqueID: 4207763229

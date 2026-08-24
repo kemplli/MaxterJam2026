@@ -10,6 +10,8 @@ public class Main : MonoBehaviour
 
     private bool winned;
 
+    public bool enemyTurn;
+
     private void Awake()
     {
         cardPrefabs = Resources.LoadAll<GameObject>("Prefabs/Cards").ToList();
@@ -38,7 +40,7 @@ public class Main : MonoBehaviour
             i++;
         }
 
-        if (G.levelManager.currentEnemyCount == 0)
+        if (G.levelManager.currentEnemyCount == 0 && G.levelManager.deadBodies.Count == 0)
         {
             if (G.levelManager.dynamicData.currentLevel == 0)
             {
@@ -56,13 +58,17 @@ public class Main : MonoBehaviour
 
     private void Win()
     {
+        Debug.Log(G.synergy);
+        StartCoroutine(G.synergy.CheckSynergies());
         G.events.onWin.Invoke();
     }
 
     private IEnumerator GetDamageFromAllEnemiesCoroutine()
     {
-        yield return new WaitForSeconds(1f);
+        enemyTurn = true;
 
+        yield return new WaitForSeconds(1f);
+        
         foreach (var enemy in G.levelManager.currentEnemies)
         {
             if(enemy == null) continue;
@@ -70,6 +76,7 @@ public class Main : MonoBehaviour
             yield return enemy.GetComponent<Enemy>().Attack();
         }
 
+        enemyTurn = false;
         EndTurn();
     }
 
@@ -87,4 +94,6 @@ public class Main : MonoBehaviour
     {
         G.events.actionsLeft -= GetDamageFromAllEnemies;
     }
+
+
 }

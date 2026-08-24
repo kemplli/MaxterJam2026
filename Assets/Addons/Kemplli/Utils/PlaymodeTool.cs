@@ -8,7 +8,6 @@ public class PlaymodeTool : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 1f;
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()

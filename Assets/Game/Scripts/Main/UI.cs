@@ -16,6 +16,11 @@ public class UI : MonoBehaviour
 
     public Slider healthSlider;
     public TMP_Text healthText;
+    public TMP_Text poisonText;
+
+    public Image defeatImage;
+    public TMP_Text WTo;
+    public TMP_Text defeat;
 
     public GameObject floatingMessagePrefab;
 

@@ -6,7 +6,7 @@ public class TransitionAnimationBattleScene : ManagedBehaviour
     protected override void ManagedInitialize()
     {
         levelDynamicData = G.d_data.GetLevelDynamicData();
-        if (levelDynamicData.currentLevel != 0)
+        if (levelDynamicData.currentLevel != 0 || GameInitializer.failed)
         {
             G.transition.FadeOut();
             G.levelManager.LoadLevel(levelDynamicData.currentLevel);

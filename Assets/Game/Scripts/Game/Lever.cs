@@ -28,6 +28,9 @@ public class Lever : ManagedBehaviour, IPointerDownHandler,IPointerUpHandler
 
     public float currentMovingProgress = 0f;
 
+    [SerializeField]
+    private Animator BG;
+
     protected override void ManagedInitialize()
     {
         G.lever = this;
@@ -35,6 +38,8 @@ public class Lever : ManagedBehaviour, IPointerDownHandler,IPointerUpHandler
         startRotation = transform.rotation.eulerAngles;
 
         G.events.onLoadingLevel += UpdateMovingProgress;
+
+        BG.speed = 0;
     }
 
     private void UpdateMovingProgress()
@@ -47,6 +52,8 @@ public class Lever : ManagedBehaviour, IPointerDownHandler,IPointerUpHandler
         if (!holding)
         {
             G.cameraShaker.shakeAmount = Mathf.Lerp(G.cameraShaker.shakeAmount, 0, Time.deltaTime * 5);
+            BG.speed = 0;
+
             return;
         }
 
@@ -65,13 +72,14 @@ public class Lever : ManagedBehaviour, IPointerDownHandler,IPointerUpHandler
 
         transform.rotation = Quaternion.Euler(0, 0, newAngle);
 
-        if (currentMovingProgress < 0.95f)
+        if (currentMovingProgress < 0.93f)
         {
             MoveEnemies(clampedTargetAngle);
         }
         else
         {
             G.cameraShaker.shakeAmount = Mathf.Lerp(G.cameraShaker.shakeAmount, 0, Time.deltaTime * 5);
+            BG.speed = 0;
         }
     }
 
@@ -81,6 +89,7 @@ public class Lever : ManagedBehaviour, IPointerDownHandler,IPointerUpHandler
 
         var t = _enteringSpeed / enteringSpeed;
         G.cameraShaker.shakeAmount = Mathf.Lerp(0, cameraShakingMagnitude, _enteringSpeed / enteringSpeed);
+        BG.speed = t / 6;
 
         for (int i = 0; i < currentEnemies.Count; i++)
         {

@@ -11,6 +11,9 @@ public class LevelManager : ManagedBehaviour
     [NonSerialized]
     public List<GameObject> currentEnemies = new List<GameObject>();
 
+    [NonSerialized]
+    public List<DeadEnemyInteractable> deadBodies = new List<DeadEnemyInteractable>();
+
     public int currentEnemyCount;
 
     public LevelDynamicData dynamicData;

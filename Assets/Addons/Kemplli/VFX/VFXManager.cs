@@ -94,8 +94,6 @@ public class VFXManager : MonoBehaviour
     //}
 
     //If neccessary
-    public void PlaySmashingBurst(string id, Vector3 position, int rate, bool selfDestroy = true) { }
-
     private bool RepetitionIsTooFrequent(string vfxId, float frequencyMin, string entrySuffix = "")
     {
         float time = Time.unscaledTime;

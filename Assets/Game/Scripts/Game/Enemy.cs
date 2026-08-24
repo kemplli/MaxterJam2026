@@ -30,6 +30,8 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public EnemyState state;
 
+    private SineWaveRotation waveRotation;
+
     protected override void ManagedInitialize()
     {
         startScale = transform.localScale;
@@ -42,6 +44,8 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         spriteRenderer.sprite = data.view;
+
+        waveRotation = GetComponent<SineWaveRotation>();
 
         G.events.onRelease += TakeDamage;
     }
@@ -65,6 +69,8 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
     public override void ManagedUpdate()
     {
         healthText.text = health.ToString();
+
+        if(shield > 0)
         shieldText.text = shield.ToString();
     }
 
@@ -96,12 +102,17 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
                     return;
                 }
                 shield -= damage;
+                shieldText.transform.parent.DOPunchScale(new Vector3(1f, 1f), 0.25f, vibrato: 1);
+             //   transform.DOKill();
+             //  transform.DOPunchScale(new Vector3(1f,1f,0f),0.25f,vibrato: 1);
 
                 return;
             }
             if (health > 0)
             {
                 health -= damage;
+            //    transform.DOKill();
+            //    transform.DOPunchScale(new Vector3(1f, 1f, 0f), 0.25f, vibrato: 1);
             }
         }
 
@@ -123,18 +134,43 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public virtual IEnumerator Attack()
     {
-        yield return transform.DOPunchPosition(new Vector3(-0.5f, 0f, 0f), 0.2f, vibrato: 1);
+        if (state == EnemyState.Rotten && G.player.data.poison > 0)
+        {
+            yield break;
+        }
 
-     //   if (state != EnemyState.Rotten)
-      //  {
-      //      G.player.TakeDamage(data.attackDamage);
-     //   }
-    //    else
-     //   {
-    //    }
+        waveRotation.enabled = false;
+        transform.DORotate(Vector3.zero, 0.2f);
+        yield return new WaitForSeconds(0.2f);
+        transform.DOPunchPosition(new Vector3(-0.8f, 0f, 0f), 0.2f, vibrato: 1);
+        transform.DOPunchRotation(new Vector3(0f,0f,30f),0.2f,vibrato: 1);
+
+        yield return new WaitForSeconds(0.1f);
+
+        if (state != EnemyState.Rotten)
+        {
+            G.player.TakeDamage(data.attackDamage);
+        }
+        else
+        {
+            if (G.player.data.poison <= 0)
+            {
+                G.player.TakePoison(data.poison);
+                G.ui.SpawnFloatingMessage("+" + data.poison + " К Яду", G.darkGreen);
+                G.gVolCon.VignetteFlash(0f,0.26f,G.darkGreen);
+                G.feel.ShakeLight();
+            }
+            waveRotation.enabled = true;
+
+            yield return new WaitForSeconds(0.8f);
+
+            yield break;
+        }
         G.feel.ShakeLight();
-        G.ui.SpawnFloatingMessage("Аттака -" + data.attackDamage, Color.red);
-        G.gVolCon.VignetteFlash(0f,0.26f,Color.red);
+        G.ui.SpawnFloatingMessage("Атака - " + data.attackDamage, Color.red);
+        G.gVolCon.VignetteFlash(0f, 0.26f, Color.red);
+
+        waveRotation.enabled = true;
 
         yield return new WaitForSeconds(0.8f);
 
@@ -144,7 +180,12 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
     private void Death()
     {
         transform.DOKill();
-        var inst = GameObject.Instantiate(deadPrefab, transform.position, Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(-180f, 180f)));
+        var inst = GameObject.Instantiate(deadPrefab, transform.position, deadPrefab.transform.rotation);
+        inst.GetComponent<SpriteRenderer>().sprite = spriteRenderer.sprite;
+        inst.transform.localScale = transform.localScale;
+        var dead = inst.GetComponent<DeadEnemyInteractable>();
+        dead.name = data.name;
+        G.levelManager.deadBodies.Add(dead);
         G.levelManager.currentEnemyCount--;
         Destroy(gameObject);
     }
@@ -152,6 +193,7 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 public enum Enemies
 {
+    None,
     Basic,
     Eggs
 }

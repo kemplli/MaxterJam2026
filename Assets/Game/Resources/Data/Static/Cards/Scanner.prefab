@@ -46,7 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   damage: 3
-  view: {fileID: 0}
+  view: {fileID: -2510762888339953550, guid: 967ec64859072cb41a30e1dfe26ef1eb, type: 3}
   name: "\u0421\u043A\u0430\u043D\u043D\u0435\u0440"
   description: "\u0411\u0430\u0437\u043E\u0432\u0430\u044F \u0430\u0442\u0430\u043A\u0430,
     \u0443\u0440\u043E\u043D: 3"
+  whenRelease: 1
+  cooldown: 1
+  cooldownAmount: 0
