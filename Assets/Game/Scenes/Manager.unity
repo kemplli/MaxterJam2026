@@ -307,15 +307,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6297581232909825746, guid: a025891fad5b638469161acd40510d82, type: 3}
       propertyPath: customColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6297581232909825746, guid: a025891fad5b638469161acd40510d82, type: 3}
-      propertyPath: customColor.g
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6297581232909825746, guid: a025891fad5b638469161acd40510d82, type: 3}
+      propertyPath: customColor.g
+      value: 0.61547077
+      objectReference: {fileID: 0}
+    - target: {fileID: 6297581232909825746, guid: a025891fad5b638469161acd40510d82, type: 3}
       propertyPath: customColor.r
-      value: 0.32003593
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6297581232909825746, guid: a025891fad5b638469161acd40510d82, type: 3}
       propertyPath: autoMovingDelay
@@ -327,19 +327,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6297581232909825746, guid: a025891fad5b638469161acd40510d82, type: 3}
       propertyPath: textContainers.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6297581232909825746, guid: a025891fad5b638469161acd40510d82, type: 3}
       propertyPath: textContainers.Array.data[0].Text
-      value: "\u0418\u0442\u0430\u043A[T=0.5]<color=#FFBD00>[shake magnitude = 5
-        speed = 2 ], \u0441\u044B\u043D\u043E\u043A.[T=0.5][/shake]</color> \u041F\u0440\u043E\u0431\u043E\u0432\u0430\u043B
-        \u043B\u0438 \u0442\u044B \u043F\u043E\u043B\u043E\u0436\u0438\u0442\u044C
-        \u0432 \u043F\u0430\u043A\u0435\u0442 [rainbow waveSpacing = 0.1 speed =
-        1 ][wave amplitude = 5 frequency = 5 ]\u043A\u043E\u043B\u0443[/wave][/rainbow]
-        \u0441 [rainbow waveSpacing = 0.1 speed = 1 ][wave amplitude = 5 frequency
-        = 5 ]\u043C\u0435\u043D\u0442\u043E\u0441\u043E\u043C[/wave][/rainbow]? [T=1]\u0413\u043E\u0432\u043E\u0440\u044F\u0442
-        \u043F\u0440\u043E\u0438\u0437\u043E\u0439\u0434\u0435\u0442 \u0447\u0442\u043E-\u0442\u043E
-        [T=1] <color=#5200FF>[shake magnitude = 1 speed = 40 ]\u043D\u0435\u043E\u0431\u044B\u0447\u043D\u043E\u0435[/shake]</color>[T=0.3].[T=0.3].[T=0.3].[T=0.3]"
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8269849385620229285, guid: a025891fad5b638469161acd40510d82, type: 3}
       propertyPath: m_LocalPosition.x
@@ -421,8 +413,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5, y: -158}
-  m_SizeDelta: {x: 812.67, y: 420.98}
+  m_AnchoredPosition: {x: -23, y: -333.09}
+  m_SizeDelta: {x: 875.76, y: 294.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &601495475
 MonoBehaviour:
@@ -437,7 +429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 0.49803922}
+  m_Color: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 0.11372549}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -475,6 +467,7 @@ GameObject:
   - component: {fileID: 667016057}
   - component: {fileID: 667016060}
   - component: {fileID: 667016061}
+  - component: {fileID: 667016062}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -570,18 +563,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textContainers:
   - elementName: 
-    Text: "\u0418\u0442\u0430\u043A[T=0.5]<color=#FFBD00>[shake magnitude = 5 speed
-      = 2 ], \u0441\u044B\u043D\u043E\u043A.[T=0.5][/shake]</color> \u041F\u0440\u043E\u0431\u043E\u0432\u0430\u043B
-      \u043B\u0438 \u0442\u044B \u043F\u043E\u043B\u043E\u0436\u0438\u0442\u044C
-      \u0432 \u043F\u0430\u043A\u0435\u0442 [rainbow waveSpacing = 0.1 speed = 1
-      ][wave amplitude = 5 frequency = 5 ]\u043A\u043E\u043B\u0443[/wave][/rainbow]
-      \u0441 [rainbow waveSpacing = 0.1 speed = 1 ][wave amplitude = 5 frequency
-      = 5 ]\u043C\u0435\u043D\u0442\u043E\u0441\u043E\u043C[/wave][/rainbow]? [T=1]\u0413\u043E\u0432\u043E\u0440\u044F\u0442
-      \u043F\u0440\u043E\u0438\u0437\u043E\u0439\u0434\u0435\u0442 \u0447\u0442\u043E-\u0442\u043E
-      [T=1] <color=#5200FF>[shake magnitude = 3 speed = 40 ]\u043D\u0435\u043E\u0431\u044B\u0447\u043D\u043E\u0435[/shake]</color>[T=0.3]
-      <color=#5200FF>.</color>[T=0.3] <color=#5200FF>.</color>[T=0.3] <color=#5200FF>.</color>[T=0.3]"
+    Text: 
     Draft: 
   textHolder: {fileID: 1280658601}
+  texts:
+  - "\u0418\u0442\u0430\u043A[T=0.5]<color=#FFBD00>[shake magnitude = 5 speed = 2
+    ], \u0441\u044B\u043D\u043E\u043A.[T=0.5][/shake]</color> \u041F\u0440\u043E\u0431\u043E\u0432\u0430\u043B
+    \u043B\u0438 \u0442\u044B \u043F\u043E\u043B\u043E\u0436\u0438\u0442\u044C \u0432
+    \u043F\u0430\u043A\u0435\u0442 [rainbow waveSpacing = 0.1 speed = 1 ][wave amplitude
+    = 5 frequency = 5 ]\u043A\u043E\u043B\u0443[/wave][/rainbow] \u0441 [rainbow
+    waveSpacing = 0.1 speed = 1 ][wave amplitude = 5 frequency = 5 ]\u043C\u0435\u043D\u0442\u043E\u0441\u043E\u043C[/wave][/rainbow]?
+    [T=1]\u0413\u043E\u0432\u043E\u0440\u044F\u0442 \u043F\u0440\u043E\u0438\u0437\u043E\u0439\u0434\u0435\u0442
+    \u0447\u0442\u043E-\u0442\u043E [T=1] <color=#5200FF>[shake magnitude = 3 speed
+    = 40 ]\u043D\u0435\u043E\u0431\u044B\u0447\u043D\u043E\u0435[/shake]</color>[T=0.3]
+    <color=#5200FF>.</color>[T=0.3] <color=#5200FF>.</color>[T=0.3] <color=#5200FF>.</color>[T=0.3]"
+  - "<color=#FF9600>[shake magnitude = 5 speed = 2 ]\u0421\u044B\u043D\u043E\u043A[/shake]</color>[T=0.5],
+    \u043D\u0435 \u0437\u0430\u0431\u044B\u0432\u0430\u0439 \u043F\u0440\u0438\u0441\u043B\u0443\u0448\u0438\u0432\u0430\u0442\u044C\u0441\u044F
+    \u043A \u043F\u043E\u0436\u0435\u043B\u0430\u043D\u0438\u044F\u043C \u043F\u043E\u043A\u0443\u043F\u0430\u0442\u0435\u043B\u0435\u0439.
+    [rainbow waveSpacing = 0.1 speed = 2 ][wave amplitude = 5 frequency = 5 ]\u041C\u0435\u0448\u043E\u043A[/wave][/rainbow]
+    - [T=0.5]\u044D\u0442\u043E \u043A\u0430\u043A \u0442\u0432\u043E\u044F \u043C\u0430\u043B\u0435\u043D\u044C\u043A\u0430\u044F
+    \u0432\u0441\u0435\u043B\u0435\u043D\u043D\u0430\u044F.  \u0412 \u043D\u0435\u043C
+    \u0437\u0430\u0440\u043E\u0436\u0434\u0430\u044E\u0442\u0441\u044F \u0441\u0430\u043C\u044B\u0435<color=#B300FF>
+    \u0432\u0435\u043B\u0438\u043A\u0438\u0435</color> \u0441\u0438\u043D\u0435\u0440\u0433\u0438\u0438.
+    \u041D\u043E \u0442\u043E\u043B\u044C\u043A\u043E \u0442\u0432\u043E\u0435 \u0441\u0435\u0440\u0434\u0446\u0435
+    \u043C\u043E\u0436\u0435\u0442 \u043F\u043E\u0434\u0441\u043A\u0430\u0437\u0430\u0442\u044C
+    \u043A\u0430\u043A\u0438\u0435 \u0438\u043D\u0433\u0440\u0438\u0434\u0438\u0435\u043D\u0442\u044B
+    \u043D\u0443\u0436\u043D\u044B.  [T=1]<color=#FF9D00> \u042F \u043B\u044E\u0431\u043B\u044E
+    3 \u043F\u0435\u043B\u044C\u043C\u0435\u043D\u044F \u0432 \u043C\u0435\u0448\u043A\u0435</color>[T=0.5].[T=0.5].[T=0.5]."
 --- !u!114 &667016061
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -626,6 +634,20 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &667016062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 667016056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1954717c251391348b5ba933cb5166bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetAspectX: 16
+  targetAspectY: 9
 --- !u!1 &722137497
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,8 +809,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f3fc1cba967db884493b08b864e3594b, type: 2}
+  m_sharedMaterial: {fileID: 4430402846953644380, guid: f3fc1cba967db884493b08b864e3594b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -815,7 +837,7 @@ MonoBehaviour:
   m_fontSize: 72
   m_fontSizeBase: 72
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -850,7 +872,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -8.160393, y: 0, z: -584.8294, w: -340.01712}
+  m_margin: {x: -25.057076, y: 63.3625, z: -610.17426, w: -259.7578}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1015,6 +1037,129 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2125588394
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2125588398}
+  - component: {fileID: 2125588397}
+  - component: {fileID: 2125588396}
+  - component: {fileID: 2125588395}
+  m_Layer: 0
+  m_Name: BG
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!95 &2125588395
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125588394}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4fd3e455fd1c989439c435a34103604a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!210 &2125588396
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125588394}
+  m_Enabled: 1
+  m_SortingLayerID: 482896243
+  m_SortingLayer: -1
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
+--- !u!212 &2125588397
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125588394}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: -1106654298023145858, guid: c25f3342b2fd594469d02b01ed3af2a5, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!4 &2125588398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2125588394}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.0147, y: -0.1575, z: 0}
+  m_LocalScale: {x: 4.6928124, y: 4.7687984, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1025,3 +1170,4 @@ SceneRoots:
   - {fileID: 1803457377}
   - {fileID: 1870534225}
   - {fileID: 108445375}
+  - {fileID: 2125588398}

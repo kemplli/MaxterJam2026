@@ -131,6 +131,7 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
         {
             shield = 0;
             shieldText.transform.parent.DOScale(0, 0.5f).SetEase(Ease.InOutQuad);
+            G.audio.PlaySound("shieldBreak", 0.5f, transform.position);
             G.ui.SpawnFloatingMessage("Защита снята!", new Color(1f, 0.647f, 0f));
         }
     }
@@ -160,8 +161,11 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
             {
                 G.player.TakePoison(data.poison);
                 G.ui.SpawnFloatingMessage("+" + data.poison + " К Яду", G.darkGreen);
+                G.audio.PlaySound("acid", 1f, transform.position, pitch: new AudioParams.Pitch(0.9f, 1.1f));
                 G.gVolCon.VignetteFlash(0f,0.26f,G.darkGreen);
                 G.feel.ShakeLight();
+                G.audio.PlaySound("hitHurt", 1f, transform.position, pitch: new AudioParams.Pitch(0.8f, 1.2f));
+                G.player.TakeDamage(data.attackDamage);
             }
             waveRotation.enabled = true;
 
@@ -172,6 +176,8 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
         G.feel.ShakeLight();
         G.ui.SpawnFloatingMessage("Атака - " + data.attackDamage, Color.red);
         G.gVolCon.VignetteFlash(0f, 0.26f, Color.red);
+
+        G.audio.PlaySound("hitHurt", 1f, transform.position, pitch: new AudioParams.Pitch(0.8f, 1.2f));
 
         waveRotation.enabled = true;
 
@@ -202,6 +208,8 @@ public class Enemy : ManagedBehaviour, IPointerEnterHandler, IPointerExitHandler
             G.levelManager.deadBodies.Add(dead);
         }
         G.levelManager.currentEnemyCount--;
+        G.audio.PlaySound("enemyDeath", 1f, transform.position, pitch: new AudioParams.Pitch(0.9f, 1.1f));
+
         Destroy(gameObject);
     }
 }
@@ -220,7 +228,8 @@ public enum Enemies
     Pringles,
     Glove,
     Mentos,
-    SmallSosiska
+    SmallSosiska,
+    EggsTutorial
 }
 
 public enum EnemyState

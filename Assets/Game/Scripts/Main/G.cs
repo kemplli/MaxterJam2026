@@ -1,9 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Localization.Editor;
-using System;
-using System.Resources;
 using UnityEngine.SceneManagement;
 
 public static class G 
@@ -60,6 +57,7 @@ public static class G
     public static Destroyer GC;
 
     public static Color darkGreen = new Color(0f, 0.3f, 0.15f, 1f);
+    public static Color orange = new Color(1.0f, 0.647f, 0.0f);
 }
 
 public class GameStaticDataManager
@@ -109,6 +107,7 @@ public class GameDynamicDataManager
 
     private List<LevelDynamicData> levelDynamicData = new List<LevelDynamicData>();
     private List<PlayerDynamicData> playerDynamicData = new List<PlayerDynamicData>();
+    private List<ManagerDataDynamic> managerDataDynamic = new List<ManagerDataDynamic>();
 
     public GameDynamicDataManager()
     {
@@ -126,6 +125,9 @@ public class GameDynamicDataManager
 
         List<GameObject> player = Resources.LoadAll<GameObject>("Data/Dynamic/Player").ToList();
         CreateDynamicDataObjects<PlayerDynamicData>(player, ref playerDynamicData);
+
+        List<GameObject> manager = Resources.LoadAll<GameObject>("Data/Dynamic/Manager").ToList();
+        CreateDynamicDataObjects<ManagerDataDynamic>(manager, ref managerDataDynamic);
     }
 
     private void CreateDynamicDataObjects<T>(List<GameObject> objects, ref List<T> dataComponents)
@@ -149,6 +151,11 @@ public class GameDynamicDataManager
     public PlayerDynamicData GetPlayerDynamicData()
     {
         return playerDynamicData.First();
+    }
+
+    public ManagerDataDynamic GetManagerDynamicData()
+    {
+        return managerDataDynamic.First();
     }
 
     public void ResetAndRestartGame()

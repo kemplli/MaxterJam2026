@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 15
   startHealth: 15
+  poison: 0

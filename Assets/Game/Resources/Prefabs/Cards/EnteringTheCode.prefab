@@ -110,12 +110,12 @@ MonoBehaviour:
   selecting: 1
   id: 1
   logic:
-    rid: 2058300585741910197
+    rid: 2058300612461199743
   references:
     version: 2
     RefIds:
-    - rid: 2058300585741910197
-      type: {class: DamageCard, ns: , asm: Assembly-CSharp}
+    - rid: 2058300612461199743
+      type: {class: TypeCard, ns: , asm: Assembly-CSharp}
       data: 
 --- !u!114 &1343825816141385197
 MonoBehaviour:

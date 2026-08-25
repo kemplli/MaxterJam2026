@@ -2,6 +2,8 @@ using Unity.Collections;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using System;
+using UnityEngine.SceneManagement;
 
 public class Intro : MonoBehaviour
 {
@@ -20,10 +22,20 @@ public class Intro : MonoBehaviour
 
     void Awake()
     {
-        G.audio.SetLoopAndPlay("magazin_game_mus_04", 0f);
-        G.audio.FadeInLoop(fadeDuration, musicVolume);
+        G.audio.SetLoopAndPlay("magazin_game_mus_04", 0f,sourceIndex: 2);
+        G.audio.FadeInLoop(fadeDuration, musicVolume,2);
+        G.audio.SetLoopVolume(0, 0, 1,cancelOtherFades: false);
+
+        G.typing.onEnding += End;
+
+        GameInitializer.wasAtManager = false;
 
         CustomCoroutine.WaitThenExecute(framesSwitchSpeed, () => { PlaySequence(); });
+    }
+
+    private void End()
+    {
+        G.transition.TransitioN(() => { SceneManager.LoadScene(1); G.audio.FadeOutLoop(0.5f); });
     }
 
     void PlaySequence()
@@ -47,5 +59,11 @@ public class Intro : MonoBehaviour
 
         isFrame1Active = !isFrame1Active;
         CustomCoroutine.WaitThenExecute(framesSwitchSpeed, () => { PlaySequence(); });
+    }
+
+    private void OnDestroy()
+    {
+        G.audio.FadeOutLoop(0.5f, 2);
+        G.typing.onEnding -= End;
     }
 }

@@ -6,10 +6,19 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Game/Scenes/Murlotus.unity
+    guid: 7645a6dcd2175164ba3153155039dcb8
+  - enabled: 1
     path: Assets/Game/Scenes/Kemplli.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Game/Scenes/Manager.unity
     guid: 187618629348a1641ad092d164462f2e
+  - enabled: 1
+    path: Assets/Game/Scenes/End.unity
+    guid: ec29389e1ab2d0f4aa861b7f89862774
+  - enabled: 1
+    path: Assets/Game/Scenes/Titles.unity
+    guid: a64e09c6999014848ac0b5453fd82b7c
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

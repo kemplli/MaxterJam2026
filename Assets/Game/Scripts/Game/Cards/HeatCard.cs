@@ -13,9 +13,10 @@ public class HeatCard : ICard
         }
         else
         {
-            enemy.BreakShield();
             G.gVolCon.VignetteFlash(0f, 0.26f, new Color(1f, 0.647f, 0f));
             G.events.onRelease.Invoke(data.damage * 2);
         }
+        G.audio.PlaySound("microwave",1f,position);
+        G.audio.PlaySound("hitCard", 1f, position);
     }
 }

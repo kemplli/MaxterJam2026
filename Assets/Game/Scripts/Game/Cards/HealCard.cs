@@ -10,5 +10,6 @@ public class HealCard : ICard
         G.ui.SpawnFloatingMessage("+" + data.damage + " к здоровью!", Color.green);
         G.gVolCon.VignetteFlash(0f, 0.26f, Color.green);
         G.events.onHealing?.Invoke();
+        G.audio.PlaySound("Heal", 1f, position);
     }
 }

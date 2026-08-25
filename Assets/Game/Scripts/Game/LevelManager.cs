@@ -18,6 +18,8 @@ public class LevelManager : ManagedBehaviour
 
     public LevelDynamicData dynamicData;
 
+    public List<int> managerLevels = new List<int>();
+
     protected override void ManagedInitialize()
     {
         G.levelManager = this;

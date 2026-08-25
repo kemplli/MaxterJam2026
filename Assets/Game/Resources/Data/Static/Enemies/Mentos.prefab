@@ -45,11 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 11
-  health: 1
+  health: 6
   view: {fileID: 549250397942354042, guid: 4e650e8e6a9d9c14eae4fa068eaebc9f, type: 3}
   attackDamage: 1
-  startState: 0
-  shield: 0
+  startState: 1
+  shield: 1
   poison: 0
   name: "\u041C\u0435\u043D\u0442\u043E\u0441"
   deadPrefab: {fileID: 6258875181262441548, guid: 6390f8a36e24a1b448bda6ee7a16a01d, type: 3}

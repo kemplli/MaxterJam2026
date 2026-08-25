@@ -60,7 +60,8 @@ public class WaveEffect : IExtraEffect
 [Serializable]
 public class FadeInEffect
 {
-    [NonSerialized] public float fadeDuration = 0.25f;
+    [NonSerialized]
+    public float fadeDuration = 0.25f;
 
     [NonSerialized] private Dictionary<int, float> _appearanceTimers = new Dictionary<int, float>();
     [NonSerialized] private TMP_Text _lastTextComponent;
@@ -83,10 +84,7 @@ public class FadeInEffect
 
             if (!charInfo.isVisible) continue;
 
-            int uniqueCharKey = HashCode.Combine(
-                Mathf.RoundToInt(charInfo.bottomLeft.x * 100f),
-                Mathf.RoundToInt(charInfo.bottomLeft.y * 100f)
-            );
+            int uniqueCharKey = charInfo.index;
 
             if (!_appearanceTimers.ContainsKey(uniqueCharKey))
             {
@@ -117,24 +115,14 @@ public class FadeInEffect
         Vector3[] vertices = textInfo.meshInfo[materialIndex].vertices;
         Color32[] colors = textInfo.meshInfo[materialIndex].colors32;
 
-        Vector3 origV0 = charInfo.bottomLeft;  // Левый нижний
-        Vector3 origV1 = charInfo.topLeft;     // Левый верхний
-        Vector3 origV2 = charInfo.topRight;    // Правый верхний
-        Vector3 origV3 = charInfo.bottomRight; // Правый нижний
-
-        Vector3 bottomRightAnchor = origV3;
-
-        Vector3 shakeWaveOffset0 = vertices[vertexIndex + 0] - origV0;
-        Vector3 shakeWaveOffset1 = vertices[vertexIndex + 1] - origV1;
-        Vector3 shakeWaveOffset2 = vertices[vertexIndex + 2] - origV2;
-        Vector3 shakeWaveOffset3 = vertices[vertexIndex + 3] - origV3;
+        Vector3 bottomRightAnchor = charInfo.bottomRight;
 
         float easeProgress = 1f - Mathf.Pow(1f - progress, 4f);
 
-        vertices[vertexIndex + 0] = Vector3.Lerp(bottomRightAnchor, origV0, easeProgress) + (shakeWaveOffset0 * easeProgress);
-        vertices[vertexIndex + 1] = Vector3.Lerp(bottomRightAnchor, origV1, easeProgress) + (shakeWaveOffset1 * easeProgress);
-        vertices[vertexIndex + 2] = Vector3.Lerp(bottomRightAnchor, origV2, easeProgress) + (shakeWaveOffset2 * easeProgress);
-        vertices[vertexIndex + 3] = bottomRightAnchor + (shakeWaveOffset3 * easeProgress);
+        vertices[vertexIndex + 0] = Vector3.Lerp(bottomRightAnchor, vertices[vertexIndex + 0], easeProgress);
+        vertices[vertexIndex + 1] = Vector3.Lerp(bottomRightAnchor, vertices[vertexIndex + 1], easeProgress);
+        vertices[vertexIndex + 2] = Vector3.Lerp(bottomRightAnchor, vertices[vertexIndex + 2], easeProgress);
+        vertices[vertexIndex + 3] = Vector3.Lerp(bottomRightAnchor, vertices[vertexIndex + 3], easeProgress);
 
         byte alphaByte = (byte)(progress * 255);
         colors[vertexIndex + 0].a = alphaByte;

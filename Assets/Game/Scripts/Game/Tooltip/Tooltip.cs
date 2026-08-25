@@ -23,7 +23,7 @@ public class Tooltip : ManagedBehaviour
         this.name.text = name;
         this.description.text = description;
         this.name.transform.parent.transform.DOKill();
-        this.name.transform.parent.transform.DOScale(new Vector3(1.1f,1.1f,1f), 0.25f).SetEase(Ease.OutBack);
+        this.name.transform.parent.transform.DOScale(new Vector3(1f,1f,1f), 0.25f).SetEase(Ease.OutBack);
     }
 
     public void Hide()

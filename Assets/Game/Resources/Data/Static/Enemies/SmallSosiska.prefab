@@ -49,7 +49,7 @@ MonoBehaviour:
   view: {fileID: -728344590348886589, guid: 424c5bfb9ce473c468253fdebb0ed2b2, type: 3}
   attackDamage: 1
   startState: 0
-  shield: 0
+  shield: 1
   poison: 0
   name: "\u0421\u043E\u0441\u0438\u0441\u043E\u0447\u043A\u0430"
   deadPrefab: {fileID: 6258875181262441548, guid: f093a71d411ff984183c3bc996d52ecc, type: 3}

@@ -49,6 +49,8 @@ public class BagChooser : ManagedBehaviour, IPointerDownHandler, IPointerUpHandl
     public void OnPointerDown(PointerEventData eventData)
     {
         isHolding = true;
+
+        G.audio.PlaySound("desk", 1f, transform.position, pitch: new AudioParams.Pitch(0.9f, 1.1f), repetition: new AudioParams.Repetition(0.05f));
     }
 
     public void OnPointerUp(PointerEventData eventData)

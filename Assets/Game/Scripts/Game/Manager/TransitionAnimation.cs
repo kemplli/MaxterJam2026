@@ -1,16 +1,29 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class TransitionAnimation : TypingText
 {
+    [SerializeField]
+    private List<string> texts = new List<string>();
+
+    private ManagerDataDynamic data;
+
     protected override void ManagedInitialize()
     {
         G.transition.FadeOut();
 
-        G.audio.SetLoopAndPlay("manager", 0f);
+        G.audio.SetLoopAndPlay("manager", 0f,sourceIndex: 0);
         G.audio.FadeInLoop(1f, 1f, 0);
+        G.audio.FadeOutLoop(0.1f, 1);
+
+        data = G.d_data.GetManagerDynamicData();
+
+        textContainers[data.index].Text = texts[data.index];
+
+        GameInitializer.wasAtManager = true;
 
         G.typing.onEnding += End;
 
@@ -19,12 +32,13 @@ public class TransitionAnimation : TypingText
 
     private void End()
     {
-        G.transition.TransitioN(() => SceneManager.LoadScene(0));
+        G.transition.TransitioN(() => SceneManager.LoadScene(1));
         G.audio.FadeOutLoop(1f, 0);
     }
 
     public override void ManagedUpdate()
     {
+
     }
 
     private IEnumerator MainSequence()

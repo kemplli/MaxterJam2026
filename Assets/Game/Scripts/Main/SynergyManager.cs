@@ -30,11 +30,8 @@ public class SynergyManager : ManagedBehaviour
             if (currentSynergy.second != Enemies.None) sackElements.Add(currentSynergy.second);
             if (currentSynergy.last != Enemies.None) sackElements.Add(currentSynergy.last);
 
-            if (sackElements.Count < 2) continue;
-
             foreach (var recipe in data.synergies)
             {
-                // Собираем элементы текущего рецепта из базы данных
                 HashSet<Enemies> recipeElements = new HashSet<Enemies>();
                 if (recipe.first != Enemies.None) recipeElements.Add(recipe.first);
                 if (recipe.second != Enemies.None) recipeElements.Add(recipe.second);
@@ -82,25 +79,16 @@ public class SynergyManager : ManagedBehaviour
                 Vector3 startPos = sack.transform.position;
                 Vector3 baseScale = sack.transform.localScale;
 
-                sackSeq.Append(sack.transform.DOMoveY(startPos.y - 0.2f, 0.12f).SetEase(Ease.OutQuad))
-                       .Append(sack.transform.DOMoveY(startPos.y + 3f, 0.5f).SetEase(Ease.OutCubic))
-                       .Join(sack.transform.DOScale(new Vector3(baseScale.x * 0.6f, baseScale.y * 1.3f, baseScale.z), 0.12f).SetEase(Ease.OutQuad))
-                       .Append(sack.transform.DOScale(baseScale, 0.25f).SetEase(Ease.InOutSine));
+                sackSeq.Append(sack.transform.DOMoveY(startPos.y + 1.5f, 0.3f).SetEase(Ease.OutCubic))
+                       .Join(sack.transform.DOScale(new Vector3(baseScale.x * 0.6f, baseScale.y * 1.3f, baseScale.z), 0.15f).SetEase(Ease.OutQuad))
+                       .Append(sack.transform.DOScale(baseScale, 0.15f).SetEase(Ease.InOutSine));
 
-                sackSeq.InsertCallback(0.62f, () => sack.transform.GetChild(0).gameObject.SetActive(false));
-
-                sackSeq.AppendInterval(0.05f)
-                       .Append(sack.transform.DORotate(new Vector3(0, 0, -25f), 0.2f).SetEase(Ease.InOutSine))
-                       .Append(sack.transform.DORotate(new Vector3(0, 0, 25f), 0.3f).SetEase(Ease.InOutSine))
-                       .Append(sack.transform.DORotate(Vector3.zero, 0.2f).SetEase(Ease.InOutSine));
-
-                sackSeq.AppendInterval(0.1f)
-                       .Append(sack.transform.DOMoveY(startPos.y, 0.17f).SetEase(Ease.InCubic))
+                sackSeq.Append(sack.transform.DOMoveY(startPos.y, 0.25f).SetEase(Ease.InCubic))
                        .AppendCallback(() =>
                        {
-                           G.ui.SpawnFloatingMessage("Без эффекта", Color.red);
+                           G.ui.SpawnFloatingMessage("Без эффекта", Color.grey);
                            G.feel.ShakeLight();
-                           G.gVolCon.VignetteFlash(0f, 0.26f, Color.red);
+                           G.gVolCon.VignetteFlash(0f, 0.05f, Color.grey);
                        })
                        .Append(sack.transform.DOScale(new Vector3(baseScale.x * 1.1f, baseScale.y * 0.9f, baseScale.z), 0.06f).SetEase(Ease.OutQuad))
                        .Append(sack.transform.DOScale(baseScale, 0.1f).SetEase(Ease.OutBack));
@@ -113,16 +101,30 @@ public class SynergyManager : ManagedBehaviour
 
                 sack.enabled = false;
 
-                sack.transform.DOScale(sack.transform.localScale/2,1.5f).SetEase(Ease.OutQuad);
+                Sequence sackSeq = DOTween.Sequence();
 
-                yield return new WaitForSeconds(1.5f);
+                sackSeq.AppendInterval(0.5f);
 
-                sack.transform.DOScale(sack.transform.localScale * 10, 0.05f).OnComplete(() => Destroy(sack.gameObject));
+                Vector3 startPos = sack.transform.position;
+                Vector3 baseScale = sack.transform.localScale;
 
-                yield return new WaitForSeconds(0.025f);
+                sackSeq.Append(sack.transform.DOMoveY(startPos.y + 1.5f, 0.3f).SetEase(Ease.OutCubic))
+                       .Join(sack.transform.DOScale(new Vector3(baseScale.x * 0.6f, baseScale.y * 1.3f, baseScale.z), 0.15f).SetEase(Ease.OutQuad))
+                       .Append(sack.transform.DOScale(baseScale, 0.15f).SetEase(Ease.InOutSine));
 
-                G.feel.ShakeLight();
-                G.ui.SpawnFloatingMessage(data.name, Color.red);
+                sackSeq.Append(sack.transform.DOMoveY(startPos.y, 0.25f).SetEase(Ease.InCubic))
+                       .AppendCallback(() =>
+                       {
+                           G.ui.SpawnFloatingMessage(data.name, Color.green,timeIn: 1.5f,withShake: true);
+                           G.currentTimeScale = 0.5f;
+                           CustomCoroutine.WaitThenExecute(1f, () => { G.currentTimeScale = 1f; },unscaledTime: true);
+                           G.feel.ShakeLight();
+                           G.gVolCon.VignetteFlash(0f, 0.26f, Color.green);
+                       })
+                       .Append(sack.transform.DOScale(new Vector3(baseScale.x * 1.1f, baseScale.y * 0.9f, baseScale.z), 0.06f).SetEase(Ease.OutQuad))
+                       .Append(sack.transform.DOScale(baseScale, 0.1f).SetEase(Ease.OutBack));
+
+                yield return sackSeq.WaitForCompletion();
             }
         }
 

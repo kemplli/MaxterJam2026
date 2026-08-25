@@ -57,6 +57,8 @@ public class CardViewInteractable : DraggableSmoothDamp
 
     protected override void OnRelease()
     {
+        G.audio.PlaySound("Card", 0.8f, transform.position, pitch: new AudioParams.Pitch(0.9f, 1.1f), repetition: new AudioParams.Repetition(0.05f), randomization: new AudioParams.Randomization());
+
         if (G.main.enemyTurn) return;
 
         if (G.selectedEnemy != null && data.whenRelease)
@@ -87,6 +89,7 @@ public class CardViewInteractable : DraggableSmoothDamp
                 else
                 {
                     G.feel.ShakeLight();
+                    G.audio.PlaySound("hitHurt", 1f, transform.position, pitch: new AudioParams.Pitch(1.2f));
                     G.ui.SpawnFloatingMessage("Подожди перезарядку!", Color.red);
                     G.gVolCon.VignetteFlash(0f, 0.26f, Color.red);
                 }
@@ -97,6 +100,7 @@ public class CardViewInteractable : DraggableSmoothDamp
     protected override void PointerEnter()
     {
         G.tooltip.Show(data.name, data.description + " Осталось ходов до использования: " + currentCooldownAmount);
+        G.audio.PlaySound("click", 0.8f, transform.position, pitch: new AudioParams.Pitch(0.9f, 1.1f), repetition: new AudioParams.Repetition(0.1f));
     }
 
     protected override void PointerExit()
@@ -106,6 +110,8 @@ public class CardViewInteractable : DraggableSmoothDamp
 
     protected override void PointerDown()
     {
+        G.audio.PlaySound("Card", 0.8f, transform.position, pitch: new AudioParams.Pitch(0.9f, 1.1f), repetition: new AudioParams.Repetition(0.05f), randomization: new AudioParams.Randomization());
+
         if (G.main.enemyTurn) return;
         if (!data.whenRelease)
         {

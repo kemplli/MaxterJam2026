@@ -15,7 +15,7 @@ public class DialogueWithManager : TypingText
 
     private void MoveToManager()
     {
-        G.transition.TransitioN(() => { G.SetPaused(false); SceneManager.LoadScene(1); });
+        G.transition.TransitioN(() => { G.SetPaused(false); SceneManager.LoadScene(2); });
     }
 
     private void Appear()

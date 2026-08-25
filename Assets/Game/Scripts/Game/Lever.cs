@@ -31,6 +31,9 @@ public class Lever : ManagedBehaviour, IPointerDownHandler,IPointerUpHandler
     [SerializeField]
     private Animator BG;
 
+    [SerializeField]
+    private GameObject helpa;
+
     protected override void ManagedInitialize()
     {
         G.lever = this;
@@ -38,6 +41,8 @@ public class Lever : ManagedBehaviour, IPointerDownHandler,IPointerUpHandler
         startRotation = transform.rotation.eulerAngles;
 
         G.events.onLoadingLevel += UpdateMovingProgress;
+
+        G.audio.SetLoopAndPlay("konveyor", 0f);
 
         BG.speed = 0;
     }
@@ -53,6 +58,7 @@ public class Lever : ManagedBehaviour, IPointerDownHandler,IPointerUpHandler
         {
             G.cameraShaker.shakeAmount = Mathf.Lerp(G.cameraShaker.shakeAmount, 0, Time.deltaTime * 5);
             BG.speed = 0;
+            G.audio.FadeInLoop(0, 0f);
 
             return;
         }
@@ -79,12 +85,15 @@ public class Lever : ManagedBehaviour, IPointerDownHandler,IPointerUpHandler
         else
         {
             G.cameraShaker.shakeAmount = Mathf.Lerp(G.cameraShaker.shakeAmount, 0, Time.deltaTime * 5);
+            G.audio.FadeInLoop(0, 0f);
             BG.speed = 0;
         }
     }
 
     private void MoveEnemies(float clampedTargetAngle)
     {
+        G.audio.FadeInLoop(0, 1f);
+
         _enteringSpeed = Mathf.InverseLerp(0, -16f, clampedTargetAngle) * enteringSpeed;
 
         var t = _enteringSpeed / enteringSpeed;
@@ -105,6 +114,9 @@ public class Lever : ManagedBehaviour, IPointerDownHandler,IPointerUpHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         holding = true;
+        helpa.transform.DOScale(0, 0.25f);
+
+        G.audio.PlaySound("Lever",0.8f,transform.position,pitch: new AudioParams.Pitch(0.9f,1.1f),repetition: new AudioParams.Repetition(0.1f));
     }
 
     public void OnPointerUp(PointerEventData eventData)

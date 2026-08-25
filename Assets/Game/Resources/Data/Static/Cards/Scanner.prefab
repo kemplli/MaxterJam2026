@@ -52,4 +52,5 @@ MonoBehaviour:
     \u0443\u0440\u043E\u043D: 3"
   whenRelease: 1
   cooldown: 1
-  cooldownAmount: 0
+  cooldownAmount: 1
+  vampireDamage: 0

@@ -1,4 +1,4 @@
-﻿using System;
+﻿using UnityEngine;
 
 public class ActionCounter : ManagedBehaviour
 {
@@ -31,7 +31,12 @@ public class ActionCounter : ManagedBehaviour
     private void UpdateCounter()
     {
         counter--;
-        if(counter == 0) G.events.actionsLeft?.Invoke();
+
+
+        if (counter == 0)
+        {
+            G.events.actionsLeft?.Invoke();
+        }
     }
 
     public override void ManagedUpdate()

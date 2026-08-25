@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Linq;
 using DG.Tweening;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 //TODO: Make text wrapping
 [DefaultExecutionOrder(-100)]
@@ -103,34 +104,35 @@ public class TypingManager : MonoBehaviour
 
     private void LateUpdate()
     {
-        //    if (!isTyping) return;
-
         if (textHolder == null) return;
 
         textHolder.ForceMeshUpdate();
         TMP_TextInfo textInfo = textHolder.textInfo;
 
-        foreach (var effect in extraEffects)
+        float currentTime = Time.unscaledTime;
+
+        if (extraEffects != null)
         {
-            effect.Update(Time.unscaledTime, textInfo);
+            foreach (var effect in extraEffects)
+            {
+                effect?.Update(currentTime, textInfo);
+            }
         }
 
-        fadeInEffect.Update(Time.unscaledTime, textInfo);
-
-        for (int i = 0; i < textInfo.meshInfo.Length; i++)
+        if (fadeInEffect != null)
         {
-            textInfo.meshInfo[i].mesh.vertices = textInfo.meshInfo[i].vertices;
-            textHolder.UpdateGeometry(textInfo.meshInfo[i].mesh, i);
+            fadeInEffect.Update(currentTime, textInfo);
         }
 
-        textHolder.UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
+        textHolder.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
     }
 
     private void Update()
     {
         if (!isTyping) return;
 
-        if (Input.GetKeyDown(KeyCode.W) && !movingMonologue)
+
+        if (Input.GetKeyDown(KeyCode.W) && !movingMonologue && SceneManager.GetActiveScene().buildIndex != 0)
         {
             if (textHolder.text != currentText)
             {
@@ -804,7 +806,7 @@ public class TextContainer
 public class TypingText : ManagedBehaviour
 {
     [SerializeField]
-    private List<TextContainer> textContainers = new List<TextContainer>();
+    protected List<TextContainer> textContainers = new List<TextContainer>();
 
     [SerializeField]
     private TMP_Text textHolder;
@@ -814,5 +816,6 @@ public class TypingText : ManagedBehaviour
         G.typing.textHolder = textHolder;
         GameMath.FullListWithOther(textContainers,ref G.typing.textContainers);
         G.typing.StartTyping();
+
     }
 }

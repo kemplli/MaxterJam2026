@@ -66,6 +66,7 @@ public class Sack : DraggableSmoothDamp
 
     public void Claim(DeadEnemyInteractable dead)
     {
+        G.audio.PlaySound("bag", 1f, transform.position, pitch: new AudioParams.Pitch(0.9f, 1.1f), repetition: new AudioParams.Repetition(0.05f));
         G.levelManager.deadBodies.Remove(dead);
         typesIn.Add(dead.enemyType);
         Destroy(dead.gameObject);
@@ -109,20 +110,25 @@ public class Sack : DraggableSmoothDamp
 
     protected override void PointerUp()
     {
+       // G.audio.PlaySound("bag", 1f, transform.position, pitch: new AudioParams.Pitch(0.9f, 1.1f), repetition: new AudioParams.Repetition(0.05f));
 
-        if (defaultSortingLayer == "Default")
-        {
-            if (bodiesCount > 0)
-            {
-                G.tooltip.Show("Мешок", description);
-            }
-            else
-            {
-                G.tooltip.Show("Мешок", "Пусто");
-            }
-        }
+        //if (defaultSortingLayer == "Default")
+        //{
+        //    if (bodiesCount > 0)
+        //    {
+        //        G.tooltip.Show("Мешок", description);
+        //    }
+        //    else
+        //    {
+        //        G.tooltip.Show("Мешок", "Пусто");
+        //    }
+        //}
     }
 
+    protected override void PointerDown()
+    {
+        G.audio.PlaySound("bag", 1f, transform.position, pitch: new AudioParams.Pitch(0.9f, 1.1f),repetition: new AudioParams.Repetition(0.05f));
+    }
 }
 
 [Serializable]

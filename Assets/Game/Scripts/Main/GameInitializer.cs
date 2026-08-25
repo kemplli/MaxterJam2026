@@ -4,6 +4,9 @@ public static class GameInitializer
 {
     public static bool failed;
 
+    public static bool wasAtManager;
+
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     public static void InitGame()
     {

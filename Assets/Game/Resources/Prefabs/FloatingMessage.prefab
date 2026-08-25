@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7905255835237437417}
   - component: {fileID: 4828254813940580772}
   - component: {fileID: 4139826235127776536}
+  - component: {fileID: 3451758340771214329}
   m_Layer: 5
   m_Name: FloatingMessage
   m_TagString: Untagged
@@ -69,7 +70,7 @@ MonoBehaviour:
   m_text: Attack -5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f3fc1cba967db884493b08b864e3594b, type: 2}
-  m_sharedMaterial: {fileID: -7635599110411746415, guid: 3a59bd9e01bec1a4686c5147b6a920f2, type: 2}
+  m_sharedMaterial: {fileID: 4430402846953644380, guid: f3fc1cba967db884493b08b864e3594b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -150,3 +151,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 4828254813940580772}
+  timeIn: 0
+  withShake: 0
+  shaker: {fileID: 3451758340771214329}
+--- !u!114 &3451758340771214329
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6643502883473533617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 064e848f966e19249ac330ec692d96d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  linkID: shake
+  speed: 0
+  magnitude: 4
+  stretch: 1.5
